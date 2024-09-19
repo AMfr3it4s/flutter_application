@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "705621764250",
+    "project_id": "my-mobile-app-freitas",
+    "storage_bucket": "my-mobile-app-freitas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705621764250:android:aa2988e3d28d9499009723",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDInQf6Di0PPGGNA6w5-RHGVlnTFsfcZZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
