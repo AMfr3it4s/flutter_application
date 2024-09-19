@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/main.dart';
 
 // LoginPage
 
@@ -34,8 +35,8 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Login"),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: colorScheme.onPrimary,
+        backgroundColor: colorScheme.secondary,
+        foregroundColor: colorScheme.onSecondary,
       ),
       body: Column(
         children: [
@@ -68,6 +69,10 @@ class _LoginViewState extends State<LoginView> {
                         backgroundColor: Colors.green,
                       ),
                     );
+                    await Future.delayed(const Duration(milliseconds: 500));
+
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/notes/', (route) => false);
                   }
                 } on FirebaseAuthException catch (e) {
                   String message = '';
