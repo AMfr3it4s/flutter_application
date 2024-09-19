@@ -5,7 +5,6 @@ import 'package:flutter_application/firebase_options.dart';
 import 'package:flutter_application/views/login_view.dart';
 import 'package:flutter_application/views/register_view.dart';
 import 'package:flutter_application/views/verify_email_view.dart';
-import 'dart:developer' as devtools show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,8 +76,11 @@ class _NotesViewState extends State<NotesView> {
             switch (value) {
               case MenuAction.logout:
                 final shouldLogout = await showLogOutDialog(context);
-                devtools.log(shouldLogout.toString());
-                break;
+                if (shouldLogout) {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/login/', (_) => false);
+                }
             }
           }, itemBuilder: (context) {
             return [
@@ -112,10 +114,7 @@ Future<bool> showLogOutDialog(BuildContext context) {
                 child: const Text("Cancel")),
             TextButton(
                 onPressed: () {
-                  FirebaseAuth.instance.signOut();
                   Navigator.of(context).pop(true);
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/login/', (route) => false);
                 },
                 child: const Text("LogOut"))
           ],

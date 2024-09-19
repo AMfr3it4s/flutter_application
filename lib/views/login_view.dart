@@ -72,7 +72,7 @@ class _LoginViewState extends State<LoginView> {
                     await Future.delayed(const Duration(milliseconds: 500));
 
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/notes/', (route) => false);
+                        .pushNamedAndRemoveUntil('/notes/', (_) => false);
                   }
                 } on FirebaseAuthException catch (e) {
                   String message = '';
