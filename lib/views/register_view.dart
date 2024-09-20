@@ -1,6 +1,8 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application/constants/routes.dart';
+import 'package:getwidget/getwidget.dart';
 
 //RegisterPage
 class RegisterView extends StatefulWidget {
@@ -32,28 +34,32 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(
+      appBar: GFAppBar(
         title: const Text("Register"),
-        backgroundColor: colorScheme.secondary,
-        foregroundColor: colorScheme.onSecondary,
+        backgroundColor: colorScheme.primary,
       ),
       body: Column(
         children: [
-          TextField(
+          GFTextField(
             controller: _email,
             enableSuggestions: false,
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(hintText: "Enter Your Email"),
+            decoration: const InputDecoration(
+              hintText: "Enter Your Email",
+            ),
           ),
-          TextField(
+          GFTextField(
             controller: _password,
             obscureText: true,
             enableSuggestions: false,
             autocorrect: false,
             decoration: const InputDecoration(hintText: "Enter Your Password"),
           ),
-          TextButton(
+          GFButton(
+              shape: GFButtonShape.pills,
+              type: GFButtonType.solid,
+              color: GFColors.DARK,
               onPressed: () async {
                 final email = _email.text;
                 final password = _password.text;
@@ -75,7 +81,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                   );
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil("/login/", (route) => false);
+                      .pushNamedAndRemoveUntil(loginRoute, (route) => false);
                 } on FirebaseAuthException catch (e) {
                   String message = '';
                   if (e.code == 'weak-password') {
@@ -105,10 +111,14 @@ class _RegisterViewState extends State<RegisterView> {
                 }
               },
               child: const Text("Register Now")),
-          TextButton(
+          GFButton(
+              shape: GFButtonShape.pills,
+              type: GFButtonType.solid,
+              color: GFColors.DARK,
+              size: GFSize.MEDIUM,
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamedAndRemoveUntil("/login/", (route) => false);
+                    .pushNamedAndRemoveUntil(loginRoute, (route) => false);
               },
               child: const Text("Already registered? LogIn here!"))
         ],
