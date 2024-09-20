@@ -132,8 +132,14 @@ class _LoginViewState extends State<LoginView> {
                     String message = '';
                     if (e.code == 'invalid-email') {
                       message = 'No user found with this email.';
-                    } else if (e.code == 'invalid-credential') {
+                    } else if (e.code == 'user-disabled') {
+                      message = 'You have been BANNED.';
+                    } else if (e.code == 'wrong-password') {
                       message = 'Incorrect password.';
+                    } else if (e.code == 'user-not-found') {
+                      message = 'No corresponding email.';
+                    } else if (e.code == 'invalid-credential') {
+                      message = 'No corresponding Password.';
                     } else {
                       message = 'Login failed. Please try again.';
                     }
