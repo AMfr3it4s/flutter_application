@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/main.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 // LoginPage
 
@@ -59,20 +59,54 @@ class _LoginViewState extends State<LoginView> {
                 final email = _email.text;
                 final password = _password.text;
                 final scaffoldMessengerState = ScaffoldMessenger.of(context);
-                try {
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: email, password: password);
-                  if (mounted) {
-                    scaffoldMessengerState.showSnackBar(
-                      const SnackBar(
-                        content: Text("Login Success"),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                    await Future.delayed(const Duration(milliseconds: 500));
 
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/notes/', (_) => false);
+                try {
+                  UserCredential userCredential = await FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: email, password: password);
+
+                  User? user = userCredential.user;
+
+                  if (mounted) {
+                    if (user != null) {
+                      if (user.emailVerified) {
+                        Navigator.of(context)
+                            .pushNamedAndRemoveUntil('/notes/', (_) => false);
+                        Future.delayed(Duration.zero, () {
+                          scaffoldMessengerState.showSnackBar(
+                            const SnackBar(
+                              elevation: 0,
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.transparent,
+                              content: AwesomeSnackbarContent(
+                                title: 'Success!',
+                                message: 'LogIn Successful!',
+                                contentType: ContentType.success,
+                              ),
+                              duration: Duration(milliseconds: 1500),
+                            ),
+                          );
+                        });
+                      } else {
+                        Navigator.of(context)
+                            .pushNamedAndRemoveUntil('/verify/', (_) => false);
+                        Future.delayed(Duration.zero, () {
+                          scaffoldMessengerState.showSnackBar(
+                            const SnackBar(
+                              elevation: 0,
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.transparent,
+                              content: AwesomeSnackbarContent(
+                                title: 'Please Verify Email!',
+                                message: 'LogIn Successful!',
+                                contentType: ContentType.warning,
+                              ),
+                              duration: Duration(milliseconds: 1500),
+                            ),
+                          );
+                        });
+                      }
+                    }
                   }
                 } on FirebaseAuthException catch (e) {
                   String message = '';
@@ -84,20 +118,31 @@ class _LoginViewState extends State<LoginView> {
                     message = 'Login failed. Please try again.';
                   }
 
-                  // Show the message in a SnackBar
                   scaffoldMessengerState.showSnackBar(
                     SnackBar(
-                      content: Text(message),
-                      backgroundColor:
-                          Colors.red, // Optional: to change background color
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: AwesomeSnackbarContent(
+                        title: 'LogIn Failed!',
+                        message: message,
+                        contentType: ContentType.failure,
+                      ),
+                      duration: const Duration(milliseconds: 1500),
                     ),
                   );
                 } catch (e) {
-                  // General error message
                   scaffoldMessengerState.showSnackBar(
                     SnackBar(
-                      content: Text('Error: $e'),
-                      backgroundColor: Colors.red,
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: AwesomeSnackbarContent(
+                        title: 'LogIn Failed!',
+                        message: "Error: $e",
+                        contentType: ContentType.failure,
+                      ),
+                      duration: const Duration(milliseconds: 1500),
                     ),
                   );
                 }

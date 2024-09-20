@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -62,43 +63,45 @@ class _RegisterViewState extends State<RegisterView> {
                       email: email, password: password);
                   scaffoldMessengerState.showSnackBar(
                     const SnackBar(
-                      content: Text("Register Success"),
-                      backgroundColor: Colors.green,
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: AwesomeSnackbarContent(
+                        title: 'Success!',
+                        message: 'Registration Successful!',
+                        contentType: ContentType.success,
+                      ),
+                      duration: Duration(milliseconds: 1500),
                     ),
                   );
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil("/login/", (route) => false);
                 } on FirebaseAuthException catch (e) {
+                  String message = '';
                   if (e.code == 'weak-password') {
-                    scaffoldMessengerState.showSnackBar(
-                      const SnackBar(
-                        content: Text('Weak-Password'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                    message = "Please enter a Strong Password";
                   }
                   if (e.code == 'email-already-in-use') {
-                    scaffoldMessengerState.showSnackBar(
-                      const SnackBar(
-                        content: Text('Email Already Registered'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                    message = "Email already in use, Try again";
                   }
-
                   if (e.code == 'invalid-email') {
-                    scaffoldMessengerState.showSnackBar(
-                      const SnackBar(
-                        content: Text('Invalid Email'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                    message = "Invalid Email format";
                   } else {
-                    scaffoldMessengerState.showSnackBar(
-                      const SnackBar(
-                        content: Text('Failed to Register'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                    message = "Please try again";
                   }
+                  scaffoldMessengerState.showSnackBar(
+                    SnackBar(
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: AwesomeSnackbarContent(
+                        title: 'Registration Failed!',
+                        message: message,
+                        contentType: ContentType.failure,
+                      ),
+                      duration: const Duration(milliseconds: 1500),
+                    ),
+                  );
                 }
               },
               child: const Text("Register Now")),
