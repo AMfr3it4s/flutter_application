@@ -13,25 +13,41 @@ class VerifyEmailView extends StatefulWidget {
 class _VerifyEmailViewState extends State<VerifyEmailView> {
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: GFAppBar(
-        title: const Text("Email Verification"),
-        backgroundColor: colorScheme.primary,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info),
-            onPressed: () {
-              _showInfoDialog(context);
-            },
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(300.0),
+        child: ClipPath(
+          clipper: WavyBottomClipper(),
+          child: Container(
+            height: 500,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/bg2.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: AppBar(
+              title: const Text(
+                "Email Verification",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+              ),
+              centerTitle: false,
+              elevation: 0,
+              backgroundColor: const Color.fromARGB(90, 0, 0, 0),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.info),
+                  onPressed: () {
+                    _showInfoDialog(context);
+                  },
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 24),
           const GFTypography(
             text:
                 "Before you can use the application, please verify your email.",
@@ -50,26 +66,39 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
               GFButton(
                 shape: GFButtonShape.pills,
                 type: GFButtonType.solid,
-                color: GFColors.DARK,
+                color: GFColors.LIGHT,
                 onPressed: () async {
                   final user = FirebaseAuth.instance.currentUser;
                   await user?.sendEmailVerification();
                 },
-                child: const Text("Send Email Verification"),
+                child: const Text(
+                  "Send Email Verification",
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
-              const SizedBox(width: 15),
-              GFButton(
-                shape: GFButtonShape.pills,
-                type: GFButtonType.solid,
-                color: GFColors.DARK,
-                onPressed: () async {
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 40),
+              const Text("You already verified your email?"),
+              const SizedBox(width: 2),
+              GestureDetector(
+                onTap: () {
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil(loginRoute, (route) => false);
                 },
-                child: const Text("Email already verified?"),
-              )
+                child: const Text(
+                  "LogIn here!",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ],
-          ),
+          )
         ],
       ),
     );
@@ -95,4 +124,33 @@ void _showInfoDialog(BuildContext context) {
       );
     },
   );
+}
+
+class WavyBottomClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(0, size.height - 30);
+    path.quadraticBezierTo(
+      size.width / 4,
+      size.height,
+      size.width / 2,
+      size.height - 50,
+    );
+    path.quadraticBezierTo(
+      (size.width * 3) / 4,
+      size.height - 100,
+      size.width,
+      size.height - 30,
+    );
+    path.lineTo(size.width, 0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return true;
+  }
 }
