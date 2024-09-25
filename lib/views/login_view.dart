@@ -165,6 +165,8 @@ class _LoginViewState extends State<LoginView> {
     }
   }
 
+  //Widgets Functions
+
   Widget _buildRegisterPrompt(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -210,6 +212,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
+  //SnackBar Functions
   void _showSnackbar(ScaffoldMessengerState scaffoldMessengerState,
       String message, ContentType contentType) {
     scaffoldMessengerState.showSnackBar(
@@ -246,6 +249,7 @@ class _LoginViewState extends State<LoginView> {
   }
 }
 
+// Class Image Format
 class WavyBottomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
