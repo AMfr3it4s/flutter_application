@@ -246,6 +246,5 @@ const createEuroMillionTable = ''' CREATE TABLE IF NOT EXISTS "euromillion"  (
       "numbers" TEXT NOT NULL,
       "STARTS" TEXT NOT NULL,
       "is_first_prize_awarded" INTEGER NOT NULL DEFAULT 0,
-      FOREIGN KEY("user_id") REFERENCES "user"("id"),
       PRIMARY KEY("id" AUTOINCREMENT)
        );''';
