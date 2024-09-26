@@ -2,10 +2,12 @@
     "cSpell.words": [
         "ARGB",
         "autocorrect",
+        "AUTOINCREMENT",
         "Bezier",
         "borderradius",
         "getwidget",
         "mobiledata",
-        "Reclip"
+        "Reclip",
+        "sqflite"
     ]
 }
