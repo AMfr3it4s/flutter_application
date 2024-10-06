@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/constants/routes.dart';
 import 'package:flutter_application/enums/menu_action.dart';
 import 'package:flutter_application/services/auth/auth.service.dart';
+import 'package:flutter_application/services/crud/notes_service.dart';
 
 class NotesView extends StatefulWidget {
   final void Function(bool) toggleThemeMode;
@@ -18,7 +19,20 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> {
+  late final NotesService _notesService;
+  String get userEmail => AuthService.firebase().currentUser!.email!;
   @override
+  void initState() {
+    _notesService = NotesService();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _notesService.close();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -75,8 +89,28 @@ class _NotesViewState extends State<NotesView> {
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
       ),
-      body: const Center(
-        child: Text("Hello World"),
+      body: Center(
+        child: FutureBuilder(
+          future: _notesService.getOrCreateUser(email: userEmail),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.done:
+                return StreamBuilder(
+                  stream: _notesService.allNotes,
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return const Text("Waiting for all notes...");
+                      default:
+                        return const CircularProgressIndicator();
+                    }
+                  },
+                );
+              default:
+                return const CircularProgressIndicator();
+            }
+          },
+        ),
       ),
     );
   }
