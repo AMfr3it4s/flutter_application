@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/constants/routes.dart';
-import 'package:flutter_application/enums/menu_action.dart';
 import 'package:flutter_application/services/auth/auth.service.dart';
 import 'package:flutter_application/services/crud/notes_service.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
 import 'package:flutter_application/views/heart_view.dart';
 
+const Color bottonNavBgColor = Color.fromRGBO(47, 62, 70, 0.7);
 class ResumeView extends StatefulWidget {
   final void Function(bool) toggleThemeMode;
   final bool isDarkMode;
@@ -54,9 +53,8 @@ class _NotesViewState extends State<ResumeView> {
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
+  return Scaffold(backgroundColor: Color.fromRGBO(239, 235, 206, 1) ,
   body: Container(
-    color: const Color.fromRGBO(239, 235, 206, 1), 
     child: _selectedIndex == 0
         ? Center(
             child: FutureBuilder(
@@ -83,21 +81,21 @@ class _NotesViewState extends State<ResumeView> {
           )
         : _pages[_selectedIndex - 1],
   ),
-  bottomNavigationBar: Container(
-  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-  decoration: BoxDecoration(
-    color: const Color.fromRGBO(47, 62, 70, 1),
-    borderRadius: BorderRadius.circular(20),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.5),
-        blurRadius: 15,
-        offset: const Offset(2, 17),
-      )
-    ],
-  ),
-  child: ClipRRect(
-    borderRadius: BorderRadius.circular(20),
+bottomNavigationBar: SafeArea(
+  child: Container(
+    height: 60,
+    margin: const EdgeInsets.fromLTRB(24, 20, 24, 26),
+    decoration: BoxDecoration(
+      color: bottonNavBgColor.withOpacity(0.8),
+      borderRadius: BorderRadius.circular(24),
+      boxShadow: const [
+        BoxShadow(
+          color: bottonNavBgColor,
+          offset: Offset(0, 15),
+          blurRadius: 30,
+        ),
+      ],
+    ),
     child: BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -119,13 +117,14 @@ class _NotesViewState extends State<ResumeView> {
       ],
       currentIndex: _selectedIndex,
       selectedItemColor: const Color.fromRGBO(249, 110, 70, 1),
-      unselectedItemColor: const Color.fromRGBO(239, 235, 206, 1),
-      type: BottomNavigationBarType.fixed,
+      unselectedItemColor: Colors.white,
+      type: BottomNavigationBarType.fixed, // ou BottomNavigationBarType.shifting
       backgroundColor: Colors.transparent,
       onTap: _onItemTapped,
     ),
   ),
 ),
+
 
 );
 

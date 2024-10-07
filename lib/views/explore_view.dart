@@ -31,8 +31,8 @@ class ExploreView extends StatelessWidget {
                 Navigator.of(context).pushNamed(activityRoute);
               },
               child: const SizedBox(
-                width: 500,
-                height: 100,
+                width: 450,
+                height: 90,
                 child: Row(
                   children: [
                     Padding(
@@ -67,8 +67,8 @@ class ExploreView extends StatelessWidget {
                 Navigator.of(context).pushNamed(heartRoute);
               },
               child: const SizedBox(
-                width: 500,
-                height: 100,
+                width: 450,
+                height: 90,
                 child: Row(
                   children: [
                     Padding(
@@ -103,8 +103,8 @@ class ExploreView extends StatelessWidget {
                 Navigator.of(context).pushNamed(nutritionRoute); // Ajuste conforme sua rota de nutrição
               },
               child: const SizedBox(
-                width: 500,
-                height: 100,
+                width: 450,
+                height: 90,
                 child: Row(
                   children: [
                     Padding(
@@ -139,8 +139,8 @@ class ExploreView extends StatelessWidget {
                 Navigator.of(context).pushNamed(settingsRoute); // Ajuste conforme sua rota de configurações
               },
               child: const SizedBox(
-                width: 500,
-                height: 100,
+                width: 450,
+                height: 90,
                 child: Row(
                   children: [
                     Padding(
@@ -180,8 +180,8 @@ class ExploreView extends StatelessWidget {
                 }
               },
               child: const SizedBox(
-                width: 500,
-                height: 100,
+                width: 450,
+                height: 90,
                 child: Row(
                   children: [
                     Padding(
