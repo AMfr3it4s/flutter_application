@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/views/activity_view.dart';
+import 'package:flutter_application/views/explore_view.dart';
+import 'package:flutter_application/views/heart_view.dart';
 import 'package:flutter_application/views/login_view.dart';
-import 'package:flutter_application/views/notes_view.dart';
+import 'package:flutter_application/views/resume_view.dart';
 import 'package:flutter_application/views/register_view.dart';
 import 'package:flutter_application/views/verify_email_view.dart';
 import 'package:flutter_application/services/auth/auth.service.dart';
@@ -31,7 +34,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Health',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(255, 1, 3, 48),
@@ -47,7 +50,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
-        notesRoute: (context) => NotesView(
+        resumeRoute: (context) => ResumeView(
               toggleThemeMode: toggleThemeMode,
               isDarkMode: _themeMode == ThemeMode.dark,
             ),
@@ -56,6 +59,10 @@ class _MyAppState extends State<MyApp> {
               toggleThemeMode: toggleThemeMode,
               isDarkMode: _themeMode == ThemeMode.dark,
             ),
+        activityRoute: (context) => const ActivityView(),
+        heartRoute: (context) =>  const HeartView(),
+        exploreRoute: (context) => const ExploreView(),
+
       },
     );
   }
@@ -81,7 +88,7 @@ class HomePage extends StatelessWidget {
             final user = AuthService.firebase().currentUser;
             if (user != null) {
               if (user.isEmailVerified) {
-                return NotesView(
+                return ResumeView(
                   toggleThemeMode: toggleThemeMode,
                   isDarkMode: isDarkMode,
                 );

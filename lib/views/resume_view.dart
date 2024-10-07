@@ -3,24 +3,43 @@ import 'package:flutter_application/constants/routes.dart';
 import 'package:flutter_application/enums/menu_action.dart';
 import 'package:flutter_application/services/auth/auth.service.dart';
 import 'package:flutter_application/services/crud/notes_service.dart';
+import 'package:flutter_application/views/activity_view.dart';
+import 'package:flutter_application/views/explore_view.dart';
+import 'package:flutter_application/views/heart_view.dart';
 
-class NotesView extends StatefulWidget {
+class ResumeView extends StatefulWidget {
   final void Function(bool) toggleThemeMode;
   final bool isDarkMode;
 
-  const NotesView({
+  const ResumeView({
     super.key,
     required this.toggleThemeMode,
     required this.isDarkMode,
   });
 
   @override
-  State<NotesView> createState() => _NotesViewState();
+  State<ResumeView> createState() => _NotesViewState();
 }
 
-class _NotesViewState extends State<NotesView> {
+class _NotesViewState extends State<ResumeView> {
   late final NotesService _notesService;
   String get userEmail => AuthService.firebase().currentUser!.email!;
+
+  int _selectedIndex = 0;
+
+  // Lista de views para alternar
+  static const List<Widget> _pages = <Widget>[
+    HeartView(),
+    ActivityView(),
+    ExploreView(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   void initState() {
     _notesService = NotesService();
@@ -35,11 +54,10 @@ class _NotesViewState extends State<NotesView> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Main UI"),
         actions: [
           PopupMenuButton<MenuAction>(
             shape: RoundedRectangleBorder(
@@ -87,30 +105,75 @@ class _NotesViewState extends State<NotesView> {
             },
           ),
         ],
-        backgroundColor: colorScheme.primary,
-        foregroundColor: colorScheme.onPrimary,
       ),
-      body: Center(
-        child: FutureBuilder(
-          future: _notesService.getOrCreateUser(email: userEmail),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.done:
-                return StreamBuilder(
-                  stream: _notesService.allNotes,
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return const Text("Waiting for all notes...");
-                      default:
-                        return const CircularProgressIndicator();
-                    }
-                  },
-                );
-              default:
-                return const CircularProgressIndicator();
-            }
-          },
+      body: _selectedIndex == 0
+          ? Center(
+            child: FutureBuilder(
+                future: _notesService.getOrCreateUser(email: userEmail),
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.done:
+                      return StreamBuilder(
+                        stream: _notesService.allNotes,
+                        builder: (context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return const Text("Waiting for all Information...");
+                            default:
+                              return const Text("Hello");
+                          }
+                        },
+                      );
+                    default:
+                      return const CircularProgressIndicator();
+                  }
+                },
+              ),
+          )
+          : _pages[_selectedIndex - 1], // Corrigido para usar o índice correto
+      bottomNavigationBar: Container(
+        margin: const  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        decoration:   
+        BoxDecoration(
+          color: const Color.fromRGBO(47, 62, 70, 1),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow:   [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              blurRadius: 15,
+              offset: const Offset(2, 17)
+            )
+          ],
+
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.heart_broken_rounded),
+                label: 'Heart',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.local_fire_department),
+                label: 'Activity',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.grid_view_rounded),
+                label: 'Explore',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: const  Color.fromRGBO(249, 110, 70, 1),
+            unselectedItemColor: const  Color.fromRGBO(239, 235, 206, 1),
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.transparent,
+            onTap: _onItemTapped,
+          ),
         ),
       ),
     );

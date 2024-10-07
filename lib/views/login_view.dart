@@ -143,7 +143,7 @@ class _LoginViewState extends State<LoginView> {
         if (user != null) {
           if (user.isEmailVerified) {
             Navigator.of(context)
-                .pushNamedAndRemoveUntil(notesRoute, (_) => false);
+                .pushNamedAndRemoveUntil(resumeRoute, (_) => false);
             _showSnackbar(scaffoldMessengerState, 'LogIn Successful!',
                 ContentType.success);
           } else {
