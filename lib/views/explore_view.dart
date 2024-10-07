@@ -25,6 +25,9 @@ class ExploreView extends StatelessWidget {
           Card(
             color: const Color.fromRGBO(47, 62, 70, 1), // Cor de fundo do card
             clipBehavior: Clip.hardEdge,
+            shape:  RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40)
+            ) ,
             child: InkWell(
               splashColor: const Color.fromRGBO(47, 62, 70, 0.8),
               onTap: () {
@@ -37,10 +40,11 @@ class ExploreView extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.all(16.0),
-                      child: Icon(
+                      child: 
+                      Icon(
                         Icons.local_fire_department,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 60, // Tamanho do ícone
+                        size: 50, // Tamanho do ícone
                       ),
                     ),
                     Text(
@@ -61,6 +65,9 @@ class ExploreView extends StatelessWidget {
           Card(
             color: const Color.fromRGBO(47, 62, 70, 1), // Cor de fundo do card
             clipBehavior: Clip.hardEdge,
+            shape:  RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40)
+            ) ,
             child: InkWell(
               splashColor: const Color.fromRGBO(47, 62, 70, 0.8),
               onTap: () {
@@ -76,7 +83,7 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.heart_broken_rounded,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 60, // Tamanho do ícone
+                        size: 50, // Tamanho do ícone
                       ),
                     ),
                     Text(
@@ -97,6 +104,9 @@ class ExploreView extends StatelessWidget {
           Card(
             color: const Color.fromRGBO(47, 62, 70, 1), // Cor de fundo do card
             clipBehavior: Clip.hardEdge,
+            shape:  RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40)
+            ) ,
             child: InkWell(
               splashColor: const Color.fromRGBO(47, 62, 70, 0.8),
               onTap: () {
@@ -112,7 +122,7 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.local_restaurant_rounded,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 60, // Tamanho do ícone
+                        size: 50, // Tamanho do ícone
                       ),
                     ),
                     Text(
@@ -133,6 +143,9 @@ class ExploreView extends StatelessWidget {
           Card(
             color: const Color.fromRGBO(47, 62, 70, 1), // Cor de fundo do card
             clipBehavior: Clip.hardEdge,
+            shape:  RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40)
+            ) ,
             child: InkWell(
               splashColor: const Color.fromRGBO(47, 62, 70, 0.8),
               onTap: () {
@@ -148,7 +161,7 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.settings,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 60, // Tamanho do ícone
+                        size: 50, // Tamanho do ícone
                       ),
                     ),
                     Text(
@@ -169,6 +182,9 @@ class ExploreView extends StatelessWidget {
           Card(
             color: const Color.fromRGBO(47, 62, 70, 1), // Cor de fundo do card
             clipBehavior: Clip.hardEdge,
+            shape:  RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40)
+            ) ,
             child: InkWell(
               splashColor: const Color.fromRGBO(47, 62, 70, 0.8),
               onTap: () async {
@@ -189,7 +205,7 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.logout_rounded,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 60, // Tamanho do ícone
+                        size: 50, // Tamanho do ícone
                       ),
                     ),
                     Text(
