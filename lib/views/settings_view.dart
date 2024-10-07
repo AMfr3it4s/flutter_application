@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ActivityView extends StatelessWidget {
-  const ActivityView({super.key});
+class SettingsView extends StatelessWidget {
+  const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class ActivityView extends StatelessWidget {
         backgroundColor: const Color.fromRGBO(239, 235, 206, 1),
       ),
       body: const Center(
-        child: Text("Activity"),
+        child: Text("Settings"),
       ),
     );
   }

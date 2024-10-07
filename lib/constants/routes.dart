@@ -6,3 +6,5 @@ const homeRoute = '/home/';
 const activityRoute = '/activity/';
 const heartRoute = '/heart';
 const exploreRoute = '/explore/';
+const nutritionRoute ='/nutrition/';
+const settingsRoute = '/settings/';

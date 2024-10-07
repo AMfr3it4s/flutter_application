@@ -5,6 +5,14 @@ class HeartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("Heart"));
+    return  Scaffold(
+      backgroundColor: const Color.fromRGBO(239, 235, 206, 1),
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(239, 235, 206, 1),
+      ),
+      body: const Center(
+        child: Text("Heart Rate"),
+      ),
+    );
   }
 }

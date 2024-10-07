@@ -54,129 +54,81 @@ class _NotesViewState extends State<ResumeView> {
 
   @override
   Widget build(BuildContext context) {
-    
-
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          PopupMenuButton<MenuAction>(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            onSelected: (value) async {
-              switch (value) {
-                case MenuAction.logout:
-                  final shouldLogout = await showLogOutDialog(context);
-                  if (shouldLogout) {
-                    await AuthService.firebase().logOut();
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil(loginRoute, (_) => false);
-                  }
-                  break;
-                case MenuAction.darkMode:
-                  widget.toggleThemeMode(!widget.isDarkMode);
-                  Navigator.pop(context);
-                  break;
-              }
-            },
-            itemBuilder: (context) {
-              return [
-                const PopupMenuItem<MenuAction>(
-                  value: MenuAction.logout,
-                  child: Text("LogOut"),
-                ),
-                PopupMenuItem<MenuAction>(
-                  value: MenuAction.darkMode,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Dark Mode"),
-                      Switch(
-                        value: widget.isDarkMode,
-                        onChanged: (value) {
-                          widget.toggleThemeMode(value);
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ];
-            },
-          ),
-        ],
-      ),
-      body: _selectedIndex == 0
-          ? Center(
+  return Scaffold(
+  body: Container(
+    color: const Color.fromRGBO(239, 235, 206, 1), 
+    child: _selectedIndex == 0
+        ? Center(
             child: FutureBuilder(
-                future: _notesService.getOrCreateUser(email: userEmail),
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.done:
-                      return StreamBuilder(
-                        stream: _notesService.allNotes,
-                        builder: (context, snapshot) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.waiting:
-                              return const Text("Waiting for all Information...");
-                            default:
-                              return const Text("Hello");
-                          }
-                        },
-                      );
-                    default:
-                      return const CircularProgressIndicator();
-                  }
-                },
-              ),
+              future: _notesService.getOrCreateUser(email: userEmail),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.done:
+                    return StreamBuilder(
+                      stream: _notesService.allNotes,
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return const Text("Waiting for all Information...");
+                          default:
+                            return const Text("Hello");
+                        }
+                      },
+                    );
+                  default:
+                    return const CircularProgressIndicator();
+                }
+              },
+            ),
           )
-          : _pages[_selectedIndex - 1], // Corrigido para usar o índice correto
-      bottomNavigationBar: Container(
-        margin: const  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        decoration:   
-        BoxDecoration(
-          color: const Color.fromRGBO(47, 62, 70, 1),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow:   [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              blurRadius: 15,
-              offset: const Offset(2, 17)
-            )
-          ],
+        : _pages[_selectedIndex - 1],
+  ),
+  bottomNavigationBar: Container(
+  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+  decoration: BoxDecoration(
+    color: const Color.fromRGBO(47, 62, 70, 1),
+    borderRadius: BorderRadius.circular(20),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.5),
+        blurRadius: 15,
+        offset: const Offset(2, 17),
+      )
+    ],
+  ),
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(20),
+    child: BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.heart_broken_rounded),
+          label: 'Heart',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.local_fire_department),
+          label: 'Activity',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.grid_view_rounded),
+          label: 'Explore',
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: const Color.fromRGBO(249, 110, 70, 1),
+      unselectedItemColor: const Color.fromRGBO(239, 235, 206, 1),
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: Colors.transparent,
+      onTap: _onItemTapped,
+    ),
+  ),
+),
 
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.heart_broken_rounded),
-                label: 'Heart',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.local_fire_department),
-                label: 'Activity',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.grid_view_rounded),
-                label: 'Explore',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: const  Color.fromRGBO(249, 110, 70, 1),
-            unselectedItemColor: const  Color.fromRGBO(239, 235, 206, 1),
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.transparent,
-            onTap: _onItemTapped,
-          ),
-        ),
-      ),
-    );
+);
+
   }
 }
 

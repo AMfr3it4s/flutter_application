@@ -3,8 +3,10 @@ import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
 import 'package:flutter_application/views/heart_view.dart';
 import 'package:flutter_application/views/login_view.dart';
+import 'package:flutter_application/views/nutrition_view.dart';
 import 'package:flutter_application/views/resume_view.dart';
 import 'package:flutter_application/views/register_view.dart';
+import 'package:flutter_application/views/settings_view.dart';
 import 'package:flutter_application/views/verify_email_view.dart';
 import 'package:flutter_application/services/auth/auth.service.dart';
 
@@ -62,6 +64,10 @@ class _MyAppState extends State<MyApp> {
         activityRoute: (context) => const ActivityView(),
         heartRoute: (context) =>  const HeartView(),
         exploreRoute: (context) => const ExploreView(),
+        nutritionRoute:(context) => const  NutritionView(),
+        settingsRoute:(context) => const  SettingsView(),
+
+
 
       },
     );
