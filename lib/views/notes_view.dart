@@ -33,6 +33,7 @@ class _NotesViewState extends State<NotesView> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
