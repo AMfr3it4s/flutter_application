@@ -302,50 +302,6 @@ class DatabaseNote {
   int get hashCode => id.hashCode;
 }
 
-class DatabaseEuroMillion {
-  final int id;
-  final int userId;
-  final String dayOFWeek;
-  final String date;
-  final List<int> numbers;
-  final List<int> stars;
-  final bool isFirstPrizeAwarded;
-
-  DatabaseEuroMillion(
-      {required this.id,
-      required this.userId,
-      required this.dayOFWeek,
-      required this.date,
-      required this.numbers,
-      required this.stars,
-      required this.isFirstPrizeAwarded});
-
-  DatabaseEuroMillion.fromRow(Map<String, Object?> map)
-      : id = map[idColumn] as int,
-        userId = map[userIdColumn] as int,
-        dayOFWeek = map[dayOFWeekColumn] as String,
-        date = map[dateColumn] as String,
-        numbers = (map[numbersColumn] as String)
-            .split(',')
-            .map((e) => int.parse(e))
-            .toList(),
-        stars = (map[starsColumn] as String)
-            .split(',')
-            .map((e) => int.parse(e))
-            .toList(),
-        isFirstPrizeAwarded =
-            (map[isFirstPrizeAwardedColumn] as int) == 1 ? true : false;
-
-  @override
-  String toString() =>
-      'Euromillions, ID = $id, userId = $userId, dayOfWeek = $dayOFWeek, date = $date, numbers = $numbers, stars = $stars, firstPrize = $isFirstPrizeAwarded';
-
-  @override
-  bool operator ==(covariant DatabaseEuroMillion other) => id == other.id;
-
-  @override
-  int get hashCode => id.hashCode;
-}
 
 const dbName = 'notes.db';
 const noteTable = 'note';
@@ -357,7 +313,6 @@ const textColumn = 'text';
 const titleColumn = 'title';
 const imageColumn = 'image';
 const isSyncedWithCloudColumn = 'is_synced_with_cloud';
-const eurimillionTable = 'euromillion';
 const dayOFWeekColumn = 'day_of_week';
 const dateColumn = 'date';
 const numbersColumn = 'numbers';
@@ -382,14 +337,3 @@ const createNoteTable = ''' CREATE TABLE IF NOT EXISTS "note"  (
       PRIMARY KEY("id" AUTOINCREMENT)
       );
       ''';
-
-const createEuroMillionTable = ''' CREATE TABLE IF NOT EXISTS "euromillion"  (
-      "id" INTEGER NOT NULL,
-      "user_id" INTEGER NOT NULL,
-      "day_of_week" TEXT NOT NULL,
-      "date" TEXT NOT NULL,
-      "numbers" TEXT NOT NULL,
-      "STARTS" TEXT NOT NULL,
-      "is_first_prize_awarded" INTEGER NOT NULL DEFAULT 0,
-      PRIMARY KEY("id" AUTOINCREMENT)
-       );''';

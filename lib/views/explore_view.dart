@@ -23,7 +23,7 @@ class ExploreView extends StatelessWidget {
           const SizedBox(height: 50),
           // Activity Card
           Card(
-            color: const Color.fromRGBO(47, 62, 70, 1), // Cor de fundo do card
+            color: const Color.fromRGBO(47, 62, 70, 1), 
             clipBehavior: Clip.hardEdge,
             shape:  RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40)
@@ -44,7 +44,7 @@ class ExploreView extends StatelessWidget {
                       Icon(
                         Icons.local_fire_department,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 50, // Tamanho do ícone
+                        size: 50, 
                       ),
                     ),
                     Text(
@@ -52,7 +52,7 @@ class ExploreView extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white, // Cor do texto
+                        color: Colors.white, 
                       ),
                     ),
                   ],
@@ -60,10 +60,10 @@ class ExploreView extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 20), // Espaço entre os cards
+          const SizedBox(height: 20), 
           // Heart Rate Card
           Card(
-            color: const Color.fromRGBO(47, 62, 70, 1), // Cor de fundo do card
+            color: const Color.fromRGBO(47, 62, 70, 1), 
             clipBehavior: Clip.hardEdge,
             shape:  RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40)
@@ -83,7 +83,7 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.heart_broken_rounded,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 50, // Tamanho do ícone
+                        size: 50, 
                       ),
                     ),
                     Text(
@@ -91,7 +91,7 @@ class ExploreView extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white, // Cor do texto
+                        color: Colors.white, 
                       ),
                     ),
                   ],
@@ -102,7 +102,7 @@ class ExploreView extends StatelessWidget {
           const SizedBox(height: 20),
           // Nutrition Card
           Card(
-            color: const Color.fromRGBO(47, 62, 70, 1), // Cor de fundo do card
+            color: const Color.fromRGBO(47, 62, 70, 1), 
             clipBehavior: Clip.hardEdge,
             shape:  RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40)
@@ -110,7 +110,7 @@ class ExploreView extends StatelessWidget {
             child: InkWell(
               splashColor: const Color.fromRGBO(47, 62, 70, 0.8),
               onTap: () {
-                Navigator.of(context).pushNamed(nutritionRoute); // Ajuste conforme sua rota de nutrição
+                Navigator.of(context).pushNamed(nutritionRoute); 
               },
               child: const SizedBox(
                 width: 450,
@@ -122,7 +122,7 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.local_restaurant_rounded,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 50, // Tamanho do ícone
+                        size: 50, 
                       ),
                     ),
                     Text(
@@ -130,7 +130,7 @@ class ExploreView extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white, // Cor do texto
+                        color: Colors.white, 
                       ),
                     ),
                   ],
@@ -141,7 +141,7 @@ class ExploreView extends StatelessWidget {
           const SizedBox(height: 20),
           // Settings Card
           Card(
-            color: const Color.fromRGBO(47, 62, 70, 1), // Cor de fundo do card
+            color: const Color.fromRGBO(47, 62, 70, 1), 
             clipBehavior: Clip.hardEdge,
             shape:  RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40)
@@ -149,7 +149,7 @@ class ExploreView extends StatelessWidget {
             child: InkWell(
               splashColor: const Color.fromRGBO(47, 62, 70, 0.8),
               onTap: () {
-                Navigator.of(context).pushNamed(settingsRoute); // Ajuste conforme sua rota de configurações
+                Navigator.of(context).pushNamed(settingsRoute); 
               },
               child: const SizedBox(
                 width: 450,
@@ -161,7 +161,7 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.settings,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 50, // Tamanho do ícone
+                        size: 50, 
                       ),
                     ),
                     Text(
@@ -169,7 +169,7 @@ class ExploreView extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white, // Cor do texto
+                        color: Colors.white, 
                       ),
                     ),
                   ],
@@ -180,7 +180,7 @@ class ExploreView extends StatelessWidget {
           const SizedBox(height: 20),
           // Logout Card
           Card(
-            color: const Color.fromRGBO(47, 62, 70, 1), // Cor de fundo do card
+            color: const Color.fromRGBO(47, 62, 70, 1), 
             clipBehavior: Clip.hardEdge,
             shape:  RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40)
@@ -205,7 +205,7 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.logout_rounded,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 50, // Tamanho do ícone
+                        size: 50, 
                       ),
                     ),
                     Text(
@@ -213,7 +213,7 @@ class ExploreView extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white, // Cor do texto
+                        color: Colors.white, 
                       ),
                     ),
                   ],
