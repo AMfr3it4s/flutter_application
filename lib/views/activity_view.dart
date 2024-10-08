@@ -102,7 +102,7 @@ class _ActivityViewState extends State<ActivityView> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             RadialProgressWidget(
-              percent: _percent,
+              percent: 0.3,
               diameter: 180,
               bgLineColor: const Color.fromRGBO(47, 62, 70, 0.2),
               progressLineColors: const  [ Color.fromRGBO(47, 62, 70, 1)],
@@ -112,14 +112,14 @@ class _ActivityViewState extends State<ActivityView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                    Text(
-                  _percent < 0.2 ? "You Can do it!" : _percent < 0.5 ? "Good Job!" : _percent < 0.7 ? "Great Job!" : _percent == 1 ? "You are on Fire" : "Excellent",
+                  _percent < 0.2 ? "You Can do it!" : _percent < 0.5 ? "Good Job!" : _percent < 0.7 ? "Great Job!" : _percent >= 1 ? "You are on Fire" : "Excellent",
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   style: const TextStyle(
                   fontWeight: FontWeight.bold
               ),
               ), 
-              Text(_percent < 0.2 ? Emojis.winkingFace : _percent < 0.5 ? Emojis.grinningFace : _percent <0.7 ? Emojis.upsideDownFace : _percent == 1? Emojis.fire : Emojis.astonishedFace,
+              Text(_percent < 0.2 ? Emojis.winkingFace : _percent < 0.5 ? Emojis.grinningFace : _percent <0.7 ? Emojis.upsideDownFace : _percent >= 1? Emojis.fire : Emojis.astonishedFace,
                   textAlign: TextAlign.center,
                   maxLines: 1,
                   style: const TextStyle(
