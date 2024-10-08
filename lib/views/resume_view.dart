@@ -53,7 +53,7 @@ class _NotesViewState extends State<ResumeView> {
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(backgroundColor: Color.fromRGBO(239, 235, 206, 1) ,
+  return Scaffold(backgroundColor: const Color.fromRGBO(239, 235, 206, 1) ,
   body: Container(
     child: _selectedIndex == 0
         ? Center(
