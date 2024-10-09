@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/constants/routes.dart';
 import 'package:flutter_application/services/auth/auth.service.dart';
-import 'package:flutter_application/views/resume_view.dart';
+import 'package:flutter_application/views/home_view.dart';
 
 class ExploreView extends StatelessWidget {
   const ExploreView({super.key});

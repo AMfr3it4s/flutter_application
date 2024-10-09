@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/services/auth/auth.service.dart';
-import 'package:flutter_application/services/crud/notes_service.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
 import 'package:flutter_application/views/heart_view.dart';
@@ -21,7 +20,6 @@ class ResumeView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<ResumeView> {
-  late final NotesService _notesService;
   String get userEmail => AuthService.firebase().currentUser!.email!;
 
   int _selectedIndex = 0;
@@ -39,45 +37,14 @@ class _NotesViewState extends State<ResumeView> {
     });
   }
 
-  @override
-  void initState() {
-    _notesService = NotesService();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _notesService.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
   return Scaffold(backgroundColor: const Color.fromRGBO(239, 235, 206, 1) ,
   body: Container(
     child: _selectedIndex == 0
-        ? Center(
-            child: FutureBuilder(
-              future: _notesService.getOrCreateUser(email: userEmail),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.done:
-                    return StreamBuilder(
-                      stream: _notesService.allNotes,
-                      builder: (context, snapshot) {
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.waiting:
-                            return const Text("Waiting for all Information...");
-                          default:
-                            return const Text("Hello");
-                        }
-                      },
-                    );
-                  default:
-                    return const CircularProgressIndicator();
-                }
-              },
-            ),
+        ? const Center(
+             child: Text("Waiting for Information"),
           )
         : _pages[_selectedIndex - 1],
   ),

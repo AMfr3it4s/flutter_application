@@ -4,7 +4,7 @@ import 'package:flutter_application/views/explore_view.dart';
 import 'package:flutter_application/views/heart_view.dart';
 import 'package:flutter_application/views/login_view.dart';
 import 'package:flutter_application/views/nutrition_view.dart';
-import 'package:flutter_application/views/resume_view.dart';
+import 'package:flutter_application/views/home_view.dart';
 import 'package:flutter_application/views/register_view.dart';
 import 'package:flutter_application/views/settings_view.dart';
 import 'package:flutter_application/views/verify_email_view.dart';
