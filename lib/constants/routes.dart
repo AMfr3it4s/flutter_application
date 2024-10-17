@@ -1,5 +1,10 @@
 const loginRoute = '/login/';
 const registerRoute = '/register/';
-const notesRoute = '/notes/';
+const resumeRoute = '/resume/';
 const verifyRoute = '/verify/';
 const homeRoute = '/home/';
+const activityRoute = '/activity/';
+const heartRoute = '/heart';
+const exploreRoute = '/explore/';
+const nutritionRoute ='/nutrition/';
+const settingsRoute = '/settings/';
