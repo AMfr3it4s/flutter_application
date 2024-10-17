@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/services/auth/auth.service.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
 import 'package:flutter_application/views/heart_view.dart';
@@ -20,7 +19,6 @@ class ResumeView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<ResumeView> {
-  String get userEmail => AuthService.firebase().currentUser!.email!;
 
   int _selectedIndex = 0;
 

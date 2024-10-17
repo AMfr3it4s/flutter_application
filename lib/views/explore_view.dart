@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/constants/routes.dart';
-import 'package:flutter_application/services/auth/auth.service.dart';
 import 'package:flutter_application/views/home_view.dart';
 
 class ExploreView extends StatelessWidget {
@@ -178,49 +177,6 @@ class ExploreView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          // Logout Card
-          Card(
-            color: const Color.fromRGBO(47, 62, 70, 1), 
-            clipBehavior: Clip.hardEdge,
-            shape:  RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40)
-            ) ,
-            child: InkWell(
-              splashColor: const Color.fromRGBO(47, 62, 70, 0.8),
-              onTap: () async {
-                final shouldLogout = await showLogOutDialog(context);
-                if (shouldLogout) {
-                  await AuthService.firebase().logOut();
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(loginRoute, (_) => false);
-                }
-              },
-              child: const SizedBox(
-                width: 450,
-                height: 90,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Icon(
-                        Icons.logout_rounded,
-                        color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 50, 
-                      ),
-                    ),
-                    Text(
-                      'LogOut',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white, 
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
