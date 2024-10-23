@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
-import 'package:flutter_application/views/heart_view.dart';
+import 'heart.dart';
 
 const Color bottonNavBgColor = Color.fromRGBO(47, 62, 70, 0.7);
 class ResumeView extends StatefulWidget {
@@ -24,7 +24,7 @@ class _NotesViewState extends State<ResumeView> {
 
   // Lista de views para alternar
   static const List<Widget> _pages = <Widget>[
-    HeartView(),
+    HeartPage(),
     ActivityView(),
     ExploreView(),
   ];
@@ -34,7 +34,6 @@ class _NotesViewState extends State<ResumeView> {
       _selectedIndex = index;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

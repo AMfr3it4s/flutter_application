@@ -22,7 +22,6 @@ class _ActivityViewState extends State<ActivityView> {
   late Timer _resetTimer;
   double _percent = 0.0;
   
-
   @override
   void initState() {
     super.initState();
