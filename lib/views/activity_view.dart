@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/widgets/dates.dart';
+import 'package:flutter_application/widgets/graph.dart';
+import 'package:flutter_application/widgets/info.dart' hide Stats;
+import 'package:flutter_application/widgets/stats.dart';
+import 'package:flutter_application/widgets/steps.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:async';
@@ -92,7 +97,11 @@ class _ActivityViewState extends State<ActivityView> {
       backgroundColor: const Color.fromRGBO(239, 235, 206, 1),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(239, 235, 206, 1),
-        title: const Text("Today's Activity"),
+        title: const Text(" Today's Activity", 
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold
+        ) ,),
         centerTitle: true,
       ),
       body: Padding(
@@ -100,6 +109,16 @@ class _ActivityViewState extends State<ActivityView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Dates(),
+            const SizedBox(height: 15),
+            const Steps(),
+            const SizedBox(height: 15),
+            const Graph(),
+            const SizedBox(height: 30),
+            const Info(), 
+            const SizedBox(height: 15),
+            const Stats(),
+            const SizedBox(height: 15),
             RadialProgressWidget(
               percent: 0.3,
               diameter: 180,
@@ -137,7 +156,6 @@ class _ActivityViewState extends State<ActivityView> {
                
               ),
             const SizedBox(height: 20),
-            _buildStatistics(),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
@@ -154,46 +172,5 @@ class _ActivityViewState extends State<ActivityView> {
         ),
       ),
     );
-  }
-
-  Widget _buildStatistics() {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      "${_distanceTraveled.toStringAsFixed(2)} km",
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const Text("Distance Traveled"),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "${_caloriesBurned.toStringAsFixed(2)} kcal",
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const Text("Burned Calories"),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  
+  }  
 }

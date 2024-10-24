@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
-import 'package:flutter_application/views/heart_view.dart';
+import 'package:flutter_application/views/heart.dart';
 import 'package:flutter_application/views/nutrition_view.dart';
 import 'package:flutter_application/views/home_view.dart';
 import 'package:flutter_application/views/settings_view.dart';
@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
               isDarkMode: _themeMode == ThemeMode.dark,
             ),
         activityRoute: (context) => const ActivityView(),
-        heartRoute: (context) =>  const HeartView(),
+        heartRoute: (context) =>  const HeartPage(),
         exploreRoute: (context) => const ExploreView(),
         nutritionRoute:(context) => const  NutritionView(),
         settingsRoute:(context) => const  SettingsView(),

@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+
 import '../models/heartRate.dart';
 
 import 'package:camera/camera.dart';
@@ -19,7 +21,7 @@ class _HeartPageState extends State<HeartPage> {
   bool _toggled = false;
   CameraController? _controller;
 
-  List<HeartRateRecord> _history = [];
+  final List<HeartRateRecord> _history = [];
 
   final List<SensorValue> _data = <SensorValue>[];
 
@@ -93,7 +95,13 @@ class _HeartPageState extends State<HeartPage> {
   void _calculateHeartRate() {
     // Simple peak detection algorithm
     if (_data.isEmpty) {
-      print("no data was collected");
+      const snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      duration: Duration(seconds: 2),
+      content:  AwesomeSnackbarContent(title: 'Error', message: "No Data Was Collected", contentType: ContentType.failure),);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       return;
     }
 
@@ -102,7 +110,13 @@ class _HeartPageState extends State<HeartPage> {
         _data.last.time.difference(_data.first.time).inSeconds;
 
     if (durationInSeconds == 0) {
-      print("measurement was too short");
+      const snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      duration: Duration(seconds: 2),
+      content:  AwesomeSnackbarContent(title: 'Warning', message: "Measure Was To Short", contentType: ContentType.warning),);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       return;
     }
 
@@ -229,7 +243,7 @@ class _HeartPageState extends State<HeartPage> {
                             _toggled = true;
                             _startMeasurement();
                           } else {
-                            print(_toggled);
+                            //print(_toggled);
                             _toggled = false;
                              _stopMeasurement();
                           }
@@ -288,3 +302,5 @@ class _HeartPageState extends State<HeartPage> {
     );
   }
 }
+
+
