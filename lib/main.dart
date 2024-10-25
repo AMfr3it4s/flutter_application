@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/utils/databa_helper.dart';
+import 'package:flutter_application/utils/tracker.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
 import 'package:flutter_application/views/heart.dart';
@@ -12,6 +13,7 @@ import 'constants/routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDatabase();
+  StepCounterService().initialize();
   runApp(const MyApp());
 }
 
