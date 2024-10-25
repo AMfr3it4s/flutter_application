@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/utils/databa_helper.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
 import 'package:flutter_application/views/heart.dart';
 import 'package:flutter_application/views/nutrition_view.dart';
 import 'package:flutter_application/views/home_view.dart';
 import 'package:flutter_application/views/settings_view.dart';
-
 import 'constants/routes.dart';
 
-void main() {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDatabase();
   runApp(const MyApp());
 }
 
@@ -90,4 +92,9 @@ class HomePage extends StatelessWidget {
   isDarkMode: !isDarkMode,) 
     );
   }
+}
+
+Future<void> initializeDatabase() async {
+  final dbHelper = DatabaseHelper();
+  await dbHelper.database;
 }

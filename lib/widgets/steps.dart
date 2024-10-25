@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/views/helpers.dart';
+
 
 class Steps extends StatelessWidget {
-  const Steps({super.key});
+  final String steps;
+  const Steps({
+    super.key, required this.steps 
+    });
 
   @override
   Widget build(BuildContext context) {
 
     // Insted of Random need to be Fetch Data From DB 
-    String steps = formatnumber( randBetween(3000, 6000));
+    //tring steps = formatnumber(totalSteps);
 
     return Padding(
       padding: const  EdgeInsets.symmetric(vertical: 10),

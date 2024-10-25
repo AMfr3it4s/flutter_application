@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/views/helpers.dart';
+import 'package:flutter_application/utils/helpers.dart';
 
 class Dates extends StatelessWidget {
   const Dates({super.key});
@@ -10,10 +10,10 @@ class Dates extends StatelessWidget {
     List<DateBox> dateBoxes = [];
 
     //DateTime date = DateTime.parse('2024-10-24');
-    DateTime date = DateTime.now().subtract(const Duration(days: 3));
+    DateTime date = DateTime.now().subtract(const Duration(days: 5));
 
     for (int i = 0; i<6; i++){
-      dateBoxes.add(DateBox(date: date, active: i == 3,));
+      dateBoxes.add(DateBox(date: date, active: i == 5,));
       date = date.add(const Duration(days:1));
     }
 
@@ -39,7 +39,7 @@ class DateBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 50,
+      width: 43,
       height: 70,
       decoration: BoxDecoration(
         gradient:  active?const  LinearGradient(

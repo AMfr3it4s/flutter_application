@@ -10,7 +10,7 @@ class ExploreView extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          const SizedBox(height: 100),
+          const SizedBox(height: 40),
           const Text(
             'Health Care Categories',
             style: TextStyle(
@@ -33,8 +33,8 @@ class ExploreView extends StatelessWidget {
                 Navigator.of(context).pushNamed(activityRoute);
               },
               child: const SizedBox(
-                width: 450,
-                height: 90,
+                width: 350,
+                height: 60,
                 child: Row(
                   children: [
                     Padding(
@@ -43,13 +43,13 @@ class ExploreView extends StatelessWidget {
                       Icon(
                         Icons.local_fire_department,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 50, 
+                        size: 30, 
                       ),
                     ),
                     Text(
                       'Activity',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white, 
                       ),
@@ -73,8 +73,8 @@ class ExploreView extends StatelessWidget {
                 Navigator.of(context).pushNamed(heartRoute);
               },
               child: const SizedBox(
-                width: 450,
-                height: 90,
+                width: 350,
+                height: 60,
                 child: Row(
                   children: [
                     Padding(
@@ -82,13 +82,13 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.heart_broken_rounded,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 50, 
+                        size: 30, 
                       ),
                     ),
                     Text(
                       'Heart Rate',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white, 
                       ),
@@ -112,8 +112,8 @@ class ExploreView extends StatelessWidget {
                 Navigator.of(context).pushNamed(nutritionRoute); 
               },
               child: const SizedBox(
-                width: 450,
-                height: 90,
+                width: 350,
+                height: 60,
                 child: Row(
                   children: [
                     Padding(
@@ -121,13 +121,13 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.local_restaurant_rounded,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 50, 
+                        size: 30, 
                       ),
                     ),
                     Text(
                       'Nutrition',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white, 
                       ),
@@ -151,8 +151,8 @@ class ExploreView extends StatelessWidget {
                 Navigator.of(context).pushNamed(settingsRoute); 
               },
               child: const SizedBox(
-                width: 450,
-                height: 90,
+                width: 350,
+                height: 60,
                 child: Row(
                   children: [
                     Padding(
@@ -160,13 +160,13 @@ class ExploreView extends StatelessWidget {
                       child: Icon(
                         Icons.settings,
                         color: Color.fromRGBO(249, 110, 70, 1),
-                        size: 50, 
+                        size: 30, 
                       ),
                     ),
                     Text(
                       'Settings',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white, 
                       ),

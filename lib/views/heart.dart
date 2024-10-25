@@ -5,7 +5,7 @@ import '../models/heartRate.dart';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:async';
 import 'history.dart';
 import '../components/chart.dart';
 import '../models/sensor.dart';
@@ -59,8 +59,10 @@ class _HeartPageState extends State<HeartPage> {
     _data.clear();
     await Future.delayed(const Duration(seconds: 1));
     _controller?.startImageStream(_processImage);
+    //Stop Measure after 5 seconds
+    _measurementLoop();
   }
-
+  
   void _stopMeasurement() async {
     await _controller?.stopImageStream();
     _toggleFlash(false);
@@ -157,7 +159,10 @@ class _HeartPageState extends State<HeartPage> {
       backgroundColor: const Color.fromRGBO(239, 235, 206, 1),
       appBar: AppBar(
       backgroundColor: const Color.fromRGBO(239, 235, 206, 1),
-      title: const Text('Heart Rate Monitor'),
+      title: const Text('Heart Rate Monitor', style: TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.bold
+      ),),
       actions: [
         IconButton(
           icon: const Icon(Icons.history),
@@ -250,8 +255,8 @@ class _HeartPageState extends State<HeartPage> {
                         });
                       },
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.red,
+                        foregroundColor: const Color.fromRGBO(239, 235, 206, 1),
+                        backgroundColor: const Color.fromRGBO(249, 110, 70, 1),
                         elevation: 6,
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(20.0),
@@ -265,7 +270,7 @@ class _HeartPageState extends State<HeartPage> {
                                 : 'Tap here to start',
                             style: const TextStyle(
                               fontSize: 17,
-                              color: Colors.white,
+                              color:  Color.fromRGBO(239, 235, 206, 1),
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Raleway',
                             ),
@@ -276,7 +281,7 @@ class _HeartPageState extends State<HeartPage> {
                           ),
                           const Icon(
                             Icons.favorite_outlined,
-                            color: Colors.white,
+                            color:  Color.fromRGBO(239, 235, 206, 1),
                             size: 64,
                           ),
                         ],
@@ -301,6 +306,40 @@ class _HeartPageState extends State<HeartPage> {
       ),
     );
   }
+ Future<void> _measurementLoop() async {
+  const int duration = 15; // Measurement Duration
+  for (int i = 0; i < duration; i++) {
+    if (!_toggled) {
+      break; 
+    }
+    await Future.delayed(const Duration(seconds: 1)); 
+  }
+
+  if (_toggled) {
+    setState(() {
+      _toggled = false;
+    });
+     
+    _stopMeasurement(); 
+    if (_history.isNotEmpty) {
+      final lastRecord = _history.last;
+      // Mostrar a frequência cardíaca no SnackBar
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        duration: const Duration(seconds: 4),
+        content: AwesomeSnackbarContent(
+          title: 'Success',
+          message: "Heart Beat Rate: ${lastRecord.bpm}",
+          contentType: ContentType.success,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+}
+
 }
 
 
