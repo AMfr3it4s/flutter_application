@@ -3,7 +3,6 @@ import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
 import 'package:flutter_application/widgets/activity.dart';
 import 'package:flutter_application/widgets/current_programs.dart';
-import 'package:flutter_application/widgets/header.dart';
 import 'heart_view.dart';
 
 const Color bottonNavBgColor = Color.fromRGBO(47, 62, 70, 0.7);

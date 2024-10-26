@@ -7,7 +7,7 @@ import '../models/sensor.dart';
 class ChartComp extends StatelessWidget {
   final List<SensorValue> allData;
 
-  const ChartComp({Key? key, required this.allData}) : super(key: key);
+  const ChartComp({super.key, required this.allData});
 
   @override
   Widget build(BuildContext context) {

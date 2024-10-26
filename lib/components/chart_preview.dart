@@ -5,7 +5,7 @@ import '../models/heartRate.dart'; // Contains the HeartRateRecord class definit
 class ChartDialogContent extends StatelessWidget {
   final HeartRateRecord record;
 
-  const ChartDialogContent({Key? key, required this.record}) : super(key: key);
+  const ChartDialogContent({super.key, required this.record});
 
   @override
   Widget build(BuildContext context) {

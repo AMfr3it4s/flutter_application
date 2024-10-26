@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/heartRate.dart';
-import '../components/chartPreview.dart';
+import '../components/chart_preview.dart';
 
 class HistoryPage extends StatefulWidget {
   final List<HeartRateRecord> history;
   final Function(int) onDelete;
 
-  const HistoryPage({Key? key, required this.history, required this.onDelete}) : super(key: key);
+  const HistoryPage({super.key, required this.history, required this.onDelete});
 
   @override
   _HistoryPageState createState() => _HistoryPageState();
@@ -39,7 +39,7 @@ class _HistoryPageState extends State<HistoryPage> {
               leading: const Icon(Icons.favorite, color: Colors.red),
               title: Text('${record.bpm} BPM'),
               subtitle: Text(
-                '${_formatDateTime(record.dateTime)}',
+                _formatDateTime(record.dateTime),
               ),
               trailing: IconButton(
                 icon: const Icon(Icons.delete),
