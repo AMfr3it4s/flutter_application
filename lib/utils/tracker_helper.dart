@@ -1,4 +1,4 @@
-import 'package:flutter_application/utils/databa_helper.dart';
+import 'package:flutter_application/utils/db_helper.dart';
 import 'package:geolocator/geolocator.dart';
 
 class StepCounterService {
@@ -57,7 +57,7 @@ class StepCounterService {
         position.latitude,
         position.longitude,
       );
-      if (distance > 0) {
+      if (distance > 4) {
         totalDistance += distance;
 
         int newStepCount = (totalDistance / stepLength).floor();
@@ -74,6 +74,4 @@ class StepCounterService {
   Future<void> _addSteps(int stepCount) async {
     await dbHelper.insertOrUpdateStep(stepCount);
   }
-
-  int getSteps() => stepCount;
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application/utils/databa_helper.dart';
+import 'package:flutter_application/utils/db_helper.dart';
 import 'package:flutter_application/widgets/dates.dart';
 import 'package:flutter_application/widgets/graph.dart';
 //import 'package:flutter_application/widgets/info.dart' hide Stats;
@@ -106,12 +106,6 @@ class _ActivityViewState extends State<ActivityView> {
             //const SizedBox(height: 15),
             Stats(calories:caloriesBurned,  distance: distanceInMeters,  time: timeInMinutes ),
             const SizedBox(height: 15),
-          ElevatedButton(
-          onPressed: () async{
-            await _addSteps(60);
-            
-          },
-          child: Text('Adicionar Passos do Dia'),)
             ],
         ),
       ),

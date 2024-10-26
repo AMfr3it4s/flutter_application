@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
-import 'heart.dart';
+import 'package:flutter_application/widgets/activity.dart';
+import 'package:flutter_application/widgets/current_programs.dart';
+import 'package:flutter_application/widgets/header.dart';
+import 'heart_view.dart';
 
 const Color bottonNavBgColor = Color.fromRGBO(47, 62, 70, 0.7);
 class ResumeView extends StatefulWidget {
   final void Function(bool) toggleThemeMode;
   final bool isDarkMode;
+  final List articles;
 
   const ResumeView({
     super.key,
     required this.toggleThemeMode,
     required this.isDarkMode,
+    required this.articles,
   });
 
   @override
@@ -40,9 +45,15 @@ class _NotesViewState extends State<ResumeView> {
   return Scaffold(backgroundColor: const Color.fromRGBO(239, 235, 206, 1) ,
   body: Container(
     child: _selectedIndex == 0
-        ? const Center(
-             child: Text("Waiting for Information"),
-          )
+        ? Column(
+          children: [
+            SizedBox(height: 50),
+            Programs(),
+            SizedBox(height: 10),
+            Activity(),
+
+          ],
+        )
         : _pages[_selectedIndex - 1],
   ),
 bottomNavigationBar: SafeArea(
@@ -95,28 +106,3 @@ bottomNavigationBar: SafeArea(
   }
 }
 
-Future<bool> showLogOutDialog(BuildContext context) {
-  return showDialog<bool>(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('SignOut'),
-        content: const Text("Are you sure you want to sign out?"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(false);
-            },
-            child: const Text("Cancel"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(true);
-            },
-            child: const Text("LogOut"),
-          )
-        ],
-      );
-    },
-  ).then((value) => value ?? false);
-}

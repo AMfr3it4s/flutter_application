@@ -6,7 +6,7 @@ import '../models/heartRate.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'history.dart';
+import 'history_view.dart';
 import '../components/chart.dart';
 import '../models/sensor.dart';
 
