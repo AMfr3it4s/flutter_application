@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/utils/db_helper.dart';
-import 'package:path/path.dart';
+
 
 class NutritionView extends StatefulWidget {
   const NutritionView({super.key});
