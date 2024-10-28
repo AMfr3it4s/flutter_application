@@ -64,7 +64,8 @@ class _MyAppState extends State<MyApp> {
         heartRoute: (context) =>  const HeartPage(),
         exploreRoute: (context) => const ExploreView(),
         nutritionRoute:(context) => const  NutritionView(),
-        settingsRoute:(context) => const  SettingsView(),
+        settingsRoute:(context) => SettingsView(toggleThemeMode: toggleThemeMode,
+              isDarkMode: _themeMode == ThemeMode.dark),
       },
     );
   }
@@ -102,5 +103,3 @@ Future<void> initializeDatabase() async {
   final dbHelper = DatabaseHelper();
   await dbHelper.database;
 }
-
-

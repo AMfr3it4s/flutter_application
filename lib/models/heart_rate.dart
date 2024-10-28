@@ -1,4 +1,4 @@
-import 'dart:convert'; // Necessário para jsonDecode
+import 'dart:convert'; 
 import 'package:flutter_application/models/sensor.dart';
 
 class HeartRateRecord {
@@ -14,9 +14,9 @@ class HeartRateRecord {
     required this.dataPoints,
   });
 
-  // Método para converter um Map em um HeartRateRecord
+  // Method that converts object in a list
   factory HeartRateRecord.fromMap(Map<String, dynamic> map) {
-    // Verifica se `points` é uma string e, se for, decodifica para uma lista
+    // Json Decode verify if it's a string or not
     final points = map['points'];
     final List<dynamic> pointsList = points is String ? jsonDecode(points) : points;
 

@@ -1,9 +1,7 @@
 import 'dart:math';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:flutter_application/models/heart_rate.dart';
 import 'package:flutter_application/utils/db_helper.dart';
-
-import '../models/heartRate.dart';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';

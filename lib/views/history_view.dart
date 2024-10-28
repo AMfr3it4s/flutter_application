@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/models/heart_rate.dart';
 import 'package:flutter_application/utils/db_helper.dart';
-import '../models/heartRate.dart';
 import '../components/chart_preview.dart';
 
 class HistoryPage extends StatefulWidget {

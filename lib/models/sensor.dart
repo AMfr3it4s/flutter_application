@@ -4,6 +4,7 @@ class SensorValue {
 
   SensorValue({required this.time, required this.value});
 
+  // Factory method to create a SensorValue instance from a Map representation.
   factory SensorValue.fromMap(Map<String, dynamic> map) {
     return SensorValue(
       time: DateTime.parse(map['time'] as String),

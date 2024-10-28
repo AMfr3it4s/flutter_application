@@ -30,7 +30,7 @@ class GraphArea extends StatefulWidget {
 class _GraphAreaState extends State<GraphArea> with SingleTickerProviderStateMixin{
 
   late AnimationController _animationController;
-
+  
   //Data Point that will come from data base, for now jsut an example
   List<DataPoint> data = [
     DataPoint(day: 1, steps: Random().nextInt(100)),

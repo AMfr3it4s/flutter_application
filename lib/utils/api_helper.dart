@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class NewsService {
-  final String apiKey = 'c3445ad46e144d99b7c566c7251b17a9'; // Substitua pela sua chave de API
+  //This API key should not be here :)
+  final String apiKey = 'c3445ad46e144d99b7c566c7251b17a9'; 
   final String baseUrl = 'https://newsapi.org/v2';
 
   Future<List<Article>> fetchTopHeadlines() async {
@@ -34,6 +35,7 @@ class Article{
     required this.url
   });
 
+   // Factory method to create a article instance from a Map representation.
   factory Article.fromJson(Map<String, dynamic> json){
     return Article(
       title: json['title'],

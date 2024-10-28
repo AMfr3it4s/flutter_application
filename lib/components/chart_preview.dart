@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_application/models/heart_rate.dart';
 import 'package:flutter_application/utils/db_helper.dart';
-import '../models/heartRate.dart'; // Certifique-se de que contém a definição da classe HeartRateRecord
+
 
 class ChartDialogContent extends StatefulWidget {
   final int recordId; // Recebe o ID do registro para buscar os dados
@@ -13,19 +14,19 @@ class ChartDialogContent extends StatefulWidget {
 }
 
 class _ChartDialogContentState extends State<ChartDialogContent> {
-  HeartRateRecord? record; // Inicialmente nulo
-  bool isLoading = true; // Para mostrar o carregamento
+  HeartRateRecord? record; 
+  bool isLoading = true; 
 
   @override
   void initState() {
     super.initState();
-    _fetchRecordData(); // Busca os dados ao iniciar o widget
+    _fetchRecordData(); 
   }
 
+  //Fetch Data from DB
   Future<void> _fetchRecordData() async {
   final dbHelper = DatabaseHelper();
   final fetchedRecord = await dbHelper.getHeartRateById(widget.recordId);
-  print('Fetched Record: $fetchedRecord'); // Para verificar o retorno
   setState(() {
     record = fetchedRecord;
     isLoading = false;
@@ -33,10 +34,11 @@ class _ChartDialogContentState extends State<ChartDialogContent> {
 }
 
 
+  //UI Design
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return Center(child: CircularProgressIndicator()); // Exibe um indicador de carregamento
+      return Center(child: CircularProgressIndicator()); 
     }
 
     if (record == null || record!.dataPoints.isEmpty) {
@@ -146,6 +148,7 @@ class _ChartDialogContentState extends State<ChartDialogContent> {
     );
   }
 
+  //Format Date Time
   String _formatDateTime(DateTime dateTime) {
     final date =
         '${dateTime.day}/${dateTime.month}/${dateTime.year}';

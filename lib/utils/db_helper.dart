@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:flutter_application/models/heartRate.dart';
+import 'package:flutter_application/models/heart_rate.dart';
 import 'package:flutter_application/models/sensor.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -46,6 +45,13 @@ class DatabaseHelper {
             points TEXT
           )
         ''');
+        await db.execute('''
+          CREATE TABLE water_intake (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            quantity INTEGER NOT NULL,
+            data TEXT NOT NULL
+          )
+        ''');
       },
     );
   }
@@ -89,7 +95,7 @@ class DatabaseHelper {
   final db = await database;
   String formattedDate = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
 
-  // Consulta os passos filtrando pela data
+  // Steps by date
   return await db.query(
     'steps',
     where: 'date = ?',
@@ -158,6 +164,22 @@ class DatabaseHelper {
   }
 }
 
+  Future<int?> getLastBpm() async {
+  final db = await DatabaseHelper().database; 
+  final List<Map<String, dynamic>> result = await db.query(
+    'heart_rate', 
+    columns: ['bpm'], 
+    orderBy: 'id DESC', 
+    limit: 1, 
+  );
+
+  if (result.isNotEmpty) {
+    return result.first['bpm'] as int?; 
+  } else {
+    return null; 
+  }
+}
+
   //Delete  Heart Rate by it's ID
    Future<void> deleteHeartRate(int id) async {
     final db = await database;
@@ -166,5 +188,59 @@ class DatabaseHelper {
       where: 'id = ?',
       whereArgs: [id],
     );
+  }
+
+  //Add Water to DB
+  Future<void> addWaterIntake() async {
+  final db = await DatabaseHelper().database;
+  
+  // Formato de data YYYY-MM-DD
+  final String today = DateTime.now().toIso8601String().substring(0, 10); 
+  
+  // Verifica se já existe um registro para hoje
+  final List<Map<String, dynamic>> existingRecords = await db.query(
+    'water_intake',
+    where: 'data = ?',
+    whereArgs: [today],
+  );
+
+  if (existingRecords.isNotEmpty) {
+    // Se já existir, atualiza a quantidade
+    final int currentQuantity = existingRecords.first['quantity'] as int;
+    await db.update(
+      'water_intake',
+      {
+        'quantity': currentQuantity + 250, 
+      },
+      where: 'data = ?',
+      whereArgs: [today],
+    );
+  } else {
+    
+    await db.insert(
+      'water_intake',
+      {
+        'quantity': 250,
+        'data': today, 
+      },
+    );
+  }
+}
+
+
+  //Delete all Data from DB
+ Future<void> deleteAllData() async {
+    final db = await database;
+
+    // Get all table names
+    final List<Map<String, dynamic>> tables = await db.rawQuery(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';"
+    );
+
+    // Delete data from each table
+    for (var table in tables) {
+      String tableName = table['name'];
+      await db.delete(tableName); // Clears all rows from the table
+    }
   }
 }

@@ -41,11 +41,6 @@ class _ActivityViewState extends State<ActivityView> {
       });
     }
   }
-
-  Future<void> _addSteps(int stepCount) async {
-    await dbHelper.insertOrUpdateStep(stepCount);
-  }
-
   //Calculate Variavels
   Map<String, dynamic> calculateMetrics(int stepCount) {
     // Calculate Time
@@ -76,6 +71,7 @@ class _ActivityViewState extends State<ActivityView> {
     super.dispose();
   }
   
+  //UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,14 +92,16 @@ class _ActivityViewState extends State<ActivityView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            //Dates UI
             const Dates(),
             const SizedBox(height: 15),
+            //Number of Steps for today's date UI
             Steps(steps: todayStepCount),
             const SizedBox(height: 15),
+            //The graph of the stpes of the week UI
             const Graph(),
             const SizedBox(height: 30),
-            //const Info(),
-            //const SizedBox(height: 15),
+            //Overall Stats of the day, based on Steps Calculations
             Stats(calories:caloriesBurned,  distance: distanceInMeters,  time: timeInMinutes ),
             const SizedBox(height: 15),
             ],
