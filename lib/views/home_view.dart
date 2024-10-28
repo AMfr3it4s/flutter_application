@@ -92,7 +92,7 @@ bottomNavigationBar: SafeArea(
       currentIndex: _selectedIndex,
       selectedItemColor: const Color.fromRGBO(249, 110, 70, 1),
       unselectedItemColor: Colors.white,
-      type: BottomNavigationBarType.fixed, // ou BottomNavigationBarType.shifting
+      type: BottomNavigationBarType.fixed, 
       backgroundColor: Colors.transparent,
       onTap: _onItemTapped,
     ),

@@ -149,7 +149,7 @@ class Change extends StatelessWidget {
   }
 }
 
-// Icon
+
 class StatIcon extends StatelessWidget {
   const StatIcon({
     super.key,
@@ -174,22 +174,24 @@ class StatIcon extends StatelessWidget {
   }
 }
 
+//Format time to hours and minutes insted of just  seconds or minutes
 String formatTime(double timeInMinutes) {
-  int hours = timeInMinutes ~/ 60; // Divisão inteira para horas
-  int minutes = (timeInMinutes % 60).round(); // Resto para minutos
+  int hours = timeInMinutes ~/ 60; 
+  int minutes = (timeInMinutes % 60).round(); 
 
   if (hours > 0) {
-    return "$hours h $minutes min"; // Formato: "X h Y min"
+    return "$hours h $minutes min"; 
   } else {
-    return "$minutes min"; // Apenas minutos
+    return "$minutes min"; 
   }
 }
 
+//Fromat distance to Km insted of only meters
 String formatDistance(double distanceInMeters) {
   if (distanceInMeters >= 1000) {
     double distanceInKilometers = distanceInMeters / 1000;
-    return "${distanceInKilometers.toStringAsFixed(2)} km"; // Formato: "X km"
+    return "${distanceInKilometers.toStringAsFixed(2)} km"; 
   } else {
-    return "${distanceInMeters.toStringAsFixed(2)} m"; // Formato: "Y m"
+    return "${distanceInMeters.toStringAsFixed(2)} m"; 
   }
 }

@@ -30,8 +30,7 @@ class _HistoryPageState extends State<HistoryPage> {
         _history = records;
       });
     } catch (e) {
-      // Trate o erro adequadamente, por exemplo, exibindo um alerta
-      print("Error loading heart rate history: $e");
+      //
     }
   }
 
@@ -74,8 +73,8 @@ class _HistoryPageState extends State<HistoryPage> {
 
   void _deleteRecord(int index) async {
     final dbHelper = DatabaseHelper();
-    final recordId = _history[index].id; // Acesse o id diretamente
-    if (recordId != null) { // Verifique se o id não é nulo
+    final recordId = _history[index].id; 
+    if (recordId != null) { 
       await dbHelper.deleteHeartRate(recordId);
       setState(() {
         _history.removeAt(index);
@@ -95,7 +94,7 @@ class _HistoryPageState extends State<HistoryPage> {
       context: context,
       builder: (context) {
         return Dialog(
-          child: ChartDialogContent(recordId: record.id!), // Certifique-se de que esta classe está implementada corretamente
+          child: ChartDialogContent(recordId: record.id!), 
         );
       },
     );

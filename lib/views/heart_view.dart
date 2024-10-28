@@ -58,7 +58,7 @@ class _HeartPageState extends State<HeartPage> {
     _data.clear();
     await Future.delayed(const Duration(seconds: 1));
     _controller?.startImageStream(_processImage);
-    //Stop Measure after 5 seconds
+    //Stop Measure after 15 seconds
     _measurementLoop();
   }
   
@@ -334,7 +334,6 @@ void _showSnackBar(String title, String message, ContentType contentType) {
     _stopMeasurement(); 
     if (_history.isNotEmpty) {
       final lastRecord = _history.last;
-      // Mostrar a frequência cardíaca no SnackBar
       final snackBar = SnackBar(
         elevation: 0,
         behavior: SnackBarBehavior.floating,

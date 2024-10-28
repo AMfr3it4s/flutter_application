@@ -10,10 +10,7 @@ class Steps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // Insted of Random need to be Fetch Data From DB 
-    //tring steps = formatnumber(totalSteps);
-
-    return Padding(
+      return Padding(
       padding: const  EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: [

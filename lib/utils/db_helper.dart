@@ -91,16 +91,15 @@ class DatabaseHelper {
 }
 
   //Get Steps by Date
- Future<List<Map<String, dynamic>>> getStepsByDate(DateTime date) async {
-  final db = await database;
-  String formattedDate = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-
-  // Steps by date
-  return await db.query(
-    'steps',
-    where: 'date = ?',
-    whereArgs: [formattedDate],
+  Future<List<Map<String, dynamic>>> getStepsByDate(DateTime date) async {
+  final db = await database; 
+  final result = await db.query(
+    'steps', 
+    where: 'date = ?', 
+    whereArgs: [date.toIso8601String().split('T')[0]], 
   );
+
+  return result; 
 }
 
   //Delete Spets by Date

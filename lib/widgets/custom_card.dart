@@ -6,7 +6,7 @@ class CustomCard extends StatelessWidget {
   final IconData icon; 
 
   const CustomCard({
-    super.key, // Usando Key? em vez de super.key
+    super.key, 
     required this.route,
     required this.title,
     required this.icon,
@@ -39,7 +39,7 @@ class CustomCard extends StatelessWidget {
                 ),
               ),
               Text(
-                title, // Usando o title passado
+                title, 
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

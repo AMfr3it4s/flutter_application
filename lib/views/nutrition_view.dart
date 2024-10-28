@@ -13,13 +13,13 @@ class NutritionView extends StatefulWidget {
 class _NutritionViewState extends State<NutritionView> {
   int totalWaterIntake = 0;
 
-
+//Fetch Data from DB
 Future<void> _fetchTotalWaterIntake() async {
   final db = await DatabaseHelper().database;
   final List<Map<String, dynamic>> results = await db.query(
     'water_intake',
-    where: 'data = ?', // Corrigido o campo para 'data' para que seja consistente
-    whereArgs: [DateTime.now().toIso8601String().substring(0, 10)], // Formato de data YYYY-MM-DD
+    where: 'data = ?', 
+    whereArgs: [DateTime.now().toIso8601String().substring(0, 10)], 
   );
 
   if (results.isEmpty) {
@@ -93,8 +93,8 @@ Future<void> _fetchTotalWaterIntake() async {
               },
               child: const Icon(
                 Icons.water_drop,
-                size: 100, // Tamanho do ícone
-                color: Color.fromRGBO(249, 110, 70, 1) // Cor do ícone
+                size: 100, 
+                color: Color.fromRGBO(249, 110, 70, 1) 
               ),
             ),
           ],
