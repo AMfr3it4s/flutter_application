@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/utils/db_helper.dart';
+import 'package:flutter_application/utils/tracker_helper.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
 import 'package:flutter_application/views/heart_view.dart';
 import 'package:flutter_application/views/nutrition_view.dart';
 import 'package:flutter_application/views/home_view.dart';
 import 'package:flutter_application/views/settings_view.dart';
-
 import 'constants/routes.dart';
 
-void main() {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDatabase();
+  StepCounterService().initialize();
   runApp(const MyApp());
 }
 
@@ -28,6 +32,7 @@ class _MyAppState extends State<MyApp> {
       _themeMode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +54,18 @@ class _MyAppState extends State<MyApp> {
         resumeRoute: (context) => ResumeView(
               toggleThemeMode: toggleThemeMode,
               isDarkMode: _themeMode == ThemeMode.dark,
+              articles: [],
             ),
         homeRoute: (context) => HomePage(
               toggleThemeMode: toggleThemeMode,
               isDarkMode: _themeMode == ThemeMode.dark,
             ),
         activityRoute: (context) => const ActivityView(),
-        heartRoute: (context) =>  const HeartView(),
+        heartRoute: (context) =>  const HeartPage(),
         exploreRoute: (context) => const ExploreView(),
         nutritionRoute:(context) => const  NutritionView(),
-        settingsRoute:(context) => const  SettingsView(),
+        settingsRoute:(context) => SettingsView(toggleThemeMode: toggleThemeMode,
+              isDarkMode: _themeMode == ThemeMode.dark),
       },
     );
   }
@@ -87,7 +94,12 @@ class HomePage extends StatelessWidget {
       //   ],
       // ),
       body: ResumeView(toggleThemeMode: toggleThemeMode,
-  isDarkMode: !isDarkMode,) 
+  isDarkMode: !isDarkMode, articles: [],) 
     );
   }
+}
+
+Future<void> initializeDatabase() async {
+  final dbHelper = DatabaseHelper();
+  await dbHelper.database;
 }

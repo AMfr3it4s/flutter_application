@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:pedometer/pedometer.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'dart:async';
-import 'package:radial_progress/radial_progress.dart';
-import 'package:emojis/emojis.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_application/utils/db_helper.dart';
+import 'package:flutter_application/widgets/dates.dart';
+import 'package:flutter_application/widgets/graph.dart';
+//import 'package:flutter_application/widgets/info.dart' hide Stats;
+import 'package:flutter_application/widgets/stats.dart';
+import 'package:flutter_application/widgets/steps.dart';
 
 class ActivityView extends StatefulWidget {
   const ActivityView({super.key});
@@ -13,86 +16,75 @@ class ActivityView extends StatefulWidget {
 }
 
 class _ActivityViewState extends State<ActivityView> {
-  late Stream<StepCount> _stepCountStream;
-  int _totalSteps = 0; 
-  final List<int> _stepsHistory = []; 
-  final int _goalSteps = 10000; // Meta
-  double _distanceTraveled = 0.0; // em km
-  double _caloriesBurned = 0.0; // em kcal
-  late Timer _resetTimer;
-  double _percent = 0.0;
+  final dbHelper = DatabaseHelper();
+  String todayStepCount = "0";
+  static const int stepsPerMinute = 100; // Time
+  static const double caloriesPerStep = 0.04; // Calories
+  static const double metersPerStep = 0.8; // Distance
+  double timeInMinutes = 0.0;
+  int  caloriesBurned = 0;
+  double distanceInMeters = 0.0;
   
+  //Receive Data From Database Today's  Steps
+  Future<void> _fetchTodaySteps() async {
+    List<Map<String, dynamic>> steps = await dbHelper.getStepsByDate(DateTime.now());
+    
+    if (steps.isNotEmpty) {
+      int count = steps.first['stepCount'];
+      setState(() {
+        todayStepCount = count.toString();
+        // Calcular as métricas
+        var metrics = calculateMetrics(count);
+        timeInMinutes = metrics['timeInMinutes'];
+        caloriesBurned = metrics['caloriesBurned'];
+        distanceInMeters = metrics['distanceInMeters'];
+      });
+    }
+  }
+  //Calculate Variavels
+  Map<String, dynamic> calculateMetrics(int stepCount) {
+    // Calculate Time
+    double timeInMinutes = stepCount / stepsPerMinute;
+
+    // Calculate Calories
+    int caloriesBurned = (stepCount * caloriesPerStep).toInt();
+
+    //Calculate Distance
+    double distanceInMeters = stepCount * metersPerStep;
+
+    return {
+      'timeInMinutes': timeInMinutes,
+      'caloriesBurned': caloriesBurned,
+      'distanceInMeters': distanceInMeters,
+    };
+  }
+ 
   @override
   void initState() {
     super.initState();
-    _requestPermissions();
-    _startResetTimer(); 
-  }
-
-  void _requestPermissions() async {
-    var status = await Permission.activityRecognition.status;
-    if (!status.isGranted) {
-      await Permission.activityRecognition.request();
-    }
-    if (await Permission.activityRecognition.isGranted) {
-      _startListeningToSteps();
-    }
-  }
-
-  void _startListeningToSteps() {
-    _stepCountStream = Pedometer.stepCountStream;
-    _stepCountStream.listen(
-      (StepCount stepCount) {
-        setState(() {
-          _totalSteps = stepCount.steps;
-          _distanceTraveled = _totalSteps * 0.0008;
-          _caloriesBurned = _totalSteps * 0.05;
-          if (_stepsHistory.isEmpty || DateTime.now().day != DateTime.now().add(const Duration(days: -1)).day) {
-            _stepsHistory.add(_totalSteps);
-            _totalSteps = 0; 
-          }
-          _updatePercent();
-        });
-      },
-      onError: (error) {
-        
-      },
-    );
-  }
-
-  void _updatePercent() {
-  setState(() {
-    _percent = _totalSteps /_goalSteps;
-    print("Percent: $_percent");
-  });
-}
-
-  void _startResetTimer() {
-    _resetTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (DateTime.now().hour == 0 && DateTime.now().minute == 0) {
-        setState(() {
-          _stepsHistory.add(_totalSteps); 
-          _totalSteps = 0; 
-          _distanceTraveled = 0.0; 
-          _caloriesBurned = 0.0; 
-        });
-      }
-    });
+    _fetchTodaySteps();
+ 
   }
 
   @override
   void dispose() {
-    _resetTimer.cancel(); 
     super.dispose();
   }
-
+  
+  //UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(239, 235, 206, 1),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(239, 235, 206, 1),
-        title: const Text("Today's Activity"),
+        title: const Text(
+          "Today's Activity",
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -100,100 +92,21 @@ class _ActivityViewState extends State<ActivityView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            RadialProgressWidget(
-              percent: 0.3,
-              diameter: 180,
-              bgLineColor: const Color.fromRGBO(47, 62, 70, 0.2),
-              progressLineColors: const  [ Color.fromRGBO(47, 62, 70, 1)],
-              progressLineWidth: 16,
-              startAngle: StartAngle.top,
-              centerChild:  Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                   Text(
-                  _percent < 0.2 ? "You Can do it!" : _percent < 0.5 ? "Good Job!" : _percent < 0.7 ? "Great Job!" : _percent >= 1 ? "You are on Fire" : "Excellent",
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: const TextStyle(
-                  fontWeight: FontWeight.bold
-              ),
-              ), 
-              Text(_percent < 0.2 ? Emojis.winkingFace : _percent < 0.5 ? Emojis.grinningFace : _percent <0.7 ? Emojis.upsideDownFace : _percent >= 1? Emojis.fire : Emojis.astonishedFace,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  style: const TextStyle(
-                    fontSize: 30,
-                  ),
-              ),
-              const  SizedBox(height: 10),
-              Text("$_totalSteps",
-                  maxLines: 2,
-                  style: const TextStyle(
-                  fontWeight: FontWeight.bold)
-              ),
-              ],
-                
-              )
-               
-              ),
-            const SizedBox(height: 20),
-            _buildStatistics(),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _totalSteps += 100; 
-                  _distanceTraveled = _totalSteps * 0.0008;
-                  _caloriesBurned = _totalSteps * 0.05;
-                  _updatePercent();
-                });
-              },
-              child: const Text("Test Add Steps"),
-            ),
-          ],
+            //Dates UI
+            const Dates(),
+            const SizedBox(height: 15),
+            //Number of Steps for today's date UI
+            Steps(steps: todayStepCount),
+            const SizedBox(height: 15),
+            //The graph of the stpes of the week UI
+            const Graph(),
+            const SizedBox(height: 30),
+            //Overall Stats of the day, based on Steps Calculations
+            Stats(calories:caloriesBurned,  distance: distanceInMeters,  time: timeInMinutes ),
+            const SizedBox(height: 15),
+            ],
         ),
       ),
     );
   }
-
-  Widget _buildStatistics() {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      "${_distanceTraveled.toStringAsFixed(2)} km",
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const Text("Distance Traveled"),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "${_caloriesBurned.toStringAsFixed(2)} kcal",
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const Text("Burned Calories"),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  
 }
