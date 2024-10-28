@@ -35,7 +35,7 @@ class CustomCardHome extends StatelessWidget {
                   Text(
                     title, 
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -47,7 +47,7 @@ class CustomCardHome extends StatelessWidget {
                         value.toString(),
                         style: TextStyle(
                           fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w800,
                           color: Colors.white
                         ),
                         ),
@@ -56,7 +56,7 @@ class CustomCardHome extends StatelessWidget {
                           unit,
                           style: TextStyle(
                             fontSize: 15,
-                            fontWeight: FontWeight.w200,
+                            fontWeight: FontWeight.w500,
                             color: Colors.white
                           ),
                           )
