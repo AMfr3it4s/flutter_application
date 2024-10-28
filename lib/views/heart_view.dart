@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:flutter_application/utils/db_helper.dart';
 
 import '../models/heartRate.dart';
 
@@ -73,7 +74,7 @@ class _HeartPageState extends State<HeartPage> {
     final now = DateTime.now();
     double avgRedValue = _calculateAverageRed(image);
     setState(() {
-      _data.add(SensorValue(now, avgRedValue));
+      _data.add(SensorValue(time: now, value: avgRedValue));
     });
   }
 
@@ -95,55 +96,67 @@ class _HeartPageState extends State<HeartPage> {
   }
 
   void _calculateHeartRate() {
-    // Simple peak detection algorithm
-    if (_data.isEmpty) {
-      const snackBar = SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      duration: Duration(seconds: 2),
-      content:  AwesomeSnackbarContent(title: 'Error', message: "No Data Was Collected", contentType: ContentType.failure),);
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      return;
+  if (_data.isEmpty) {
+    _showSnackBar('Error', "No Data Was Collected", ContentType.failure);
+    return;
+  }
+
+  final durationInSeconds = _data.last.time.difference(_data.first.time).inSeconds;
+  if (durationInSeconds == 0) {
+    _showSnackBar('Warning', "Measurement Was Too Short", ContentType.warning);
+    return;
+  }
+
+  double thresholdValue = _data.map((e) => e.value).reduce(max) * 0.8;
+  int beats = 0;
+  for (int i = 1; i < _data.length - 1; i++) {
+    if (_data[i].value > _data[i - 1].value &&
+        _data[i].value > _data[i + 1].value &&
+        _data[i].value > thresholdValue) {
+      beats++;
     }
+  }
 
-    // Proceed with heart rate calculation
-    final durationInSeconds =
-        _data.last.time.difference(_data.first.time).inSeconds;
+  final bpm = ((beats / durationInSeconds) * 60).toInt();
 
-    if (durationInSeconds == 0) {
-      const snackBar = SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      duration: Duration(seconds: 2),
-      content:  AwesomeSnackbarContent(title: 'Warning', message: "Measure Was To Short", contentType: ContentType.warning),);
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      return;
-    }
-
-    double thresholdValue = _data.map((e) => e.value).reduce(max) * 0.8;
-    int beats = 0;
-    for (int i = 1; i < _data.length - 1; i++) {
-      if (_data[i].value > _data[i - 1].value &&
-          _data[i].value > _data[i + 1].value &&
-          _data[i].value > thresholdValue) { // Define an appropriate threshold
-        beats++;
-      }
-    }
-
-    final bpm = (beats / durationInSeconds) * 60;
-
+  if (bpm > 0) {
     final record = HeartRateRecord(
-      bpm: bpm.toInt(),
+      bpm: bpm,
       dateTime: DateTime.now(),
-      dataPoints: List<SensorValue>.from(_data), // Clone the list
+      dataPoints: List<SensorValue>.from(_data),
     );
 
+    List<Map<String, dynamic>> dataPointsAsMap = record.dataPoints.map((sensorValue) {
+      return {
+        'time': sensorValue.time.toIso8601String(),
+        'value': sensorValue.value,
+      };
+    }).toList();
+    DatabaseHelper().insertHeartRate(record.bpm, record.dateTime, dataPointsAsMap);
     setState(() {
-      _history.add(record); // Store the result in history
+      _history.add(record);
     });
+
+    _showSnackBar('Success', "Heart Beat Rate: $bpm", ContentType.success);
+  } else {
+    _showSnackBar('Error', "Failed to calculate BPM", ContentType.failure);
   }
+}
+
+void _showSnackBar(String title, String message, ContentType contentType) {
+  final snackBar = SnackBar(
+    elevation: 0,
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Colors.transparent,
+    duration: Duration(seconds: 2),
+    content: AwesomeSnackbarContent(
+      title: title,
+      message: message,
+      contentType: contentType,
+    ),
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}
 
   @override
   void dispose() {
@@ -174,7 +187,7 @@ class _HeartPageState extends State<HeartPage> {
                   history: _history,
                   onDelete: (index) {
                   setState(() {
-                    _history.removeAt(index);
+                    //
                   });
                   }, 
                   ),

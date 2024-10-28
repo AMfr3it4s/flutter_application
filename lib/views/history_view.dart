@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/utils/db_helper.dart';
 import '../models/heartRate.dart';
 import '../components/chart_preview.dart';
 
@@ -13,13 +14,25 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  late List<HeartRateRecord> _history;
+  late List<HeartRateRecord> _history = []; // Inicializar como uma lista vazia
 
   @override
   void initState() {
     super.initState();
-    // Make a copy of the history to allow modifications
-    _history = List<HeartRateRecord>.from(widget.history);
+    _loadHistory();
+  }
+
+  Future<void> _loadHistory() async {
+    final dbHelper = DatabaseHelper();
+    try {
+      final records = await dbHelper.getHeartRateHistory();
+      setState(() {
+        _history = records;
+      });
+    } catch (e) {
+      // Trate o erro adequadamente, por exemplo, exibindo um alerta
+      print("Error loading heart rate history: $e");
+    }
   }
 
   @override
@@ -35,20 +48,21 @@ class _HistoryPageState extends State<HistoryPage> {
         itemBuilder: (context, index) {
           final record = _history[index];
           return Card(
+            color: const Color.fromRGBO(47, 62, 70, 1),
             child: ListTile(
-              leading: const Icon(Icons.favorite, color: Colors.red),
-              title: Text('${record.bpm} BPM'),
+              leading: const Icon(Icons.favorite, color: Color.fromRGBO(249, 110, 70, 1)),
+              title: Text('${record.bpm} BPM', style: TextStyle(color: Colors.white)),
               subtitle: Text(
                 _formatDateTime(record.dateTime),
+                style: TextStyle(color: Colors.white),
               ),
               trailing: IconButton(
-                icon: const Icon(Icons.delete),
+                icon: const Icon(Icons.delete, color: Colors.white),
                 onPressed: () {
                   _deleteRecord(index);
                 },
               ),
               onTap: () {
-                // Optional: Navigate to a detailed view if desired
                 _showChartDialog(context, record);
               },
             ),
@@ -58,11 +72,16 @@ class _HistoryPageState extends State<HistoryPage> {
     );
   }
 
-  void _deleteRecord(int index) {
-    setState(() {
-      widget.onDelete(index);
-      _history.removeAt(index);
-    });
+  void _deleteRecord(int index) async {
+    final dbHelper = DatabaseHelper();
+    final recordId = _history[index].id; // Acesse o id diretamente
+    if (recordId != null) { // Verifique se o id não é nulo
+      await dbHelper.deleteHeartRate(recordId);
+      setState(() {
+        _history.removeAt(index);
+        widget.onDelete(index);
+      });
+    }
   }
 
   String _formatDateTime(DateTime dateTime) {
@@ -76,7 +95,7 @@ class _HistoryPageState extends State<HistoryPage> {
       context: context,
       builder: (context) {
         return Dialog(
-          child: ChartDialogContent(record: record),
+          child: ChartDialogContent(recordId: record.id!), // Certifique-se de que esta classe está implementada corretamente
         );
       },
     );

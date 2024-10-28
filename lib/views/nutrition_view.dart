@@ -11,7 +11,7 @@ class NutritionView extends StatelessWidget {
         backgroundColor: const Color.fromRGBO(239, 235, 206, 1),
       ),
       body: const Center(
-        child: Text("Nutrition"),
+        child: Text("Water"),
       ),
     );
   }
