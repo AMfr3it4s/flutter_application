@@ -26,7 +26,6 @@ class _NotesViewState extends State<ResumeView> {
 
   int _selectedIndex = 0;
 
-  // Lista de views para alternar
   static const List<Widget> _pages = <Widget>[
     HeartPage(),
     ActivityView(),

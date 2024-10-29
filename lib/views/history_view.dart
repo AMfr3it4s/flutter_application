@@ -14,7 +14,7 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  late List<HeartRateRecord> _history = []; // Inicializar como uma lista vazia
+  late List<HeartRateRecord> _history = []; 
 
   @override
   void initState() {

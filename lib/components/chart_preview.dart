@@ -5,7 +5,7 @@ import 'package:flutter_application/utils/db_helper.dart';
 
 
 class ChartDialogContent extends StatefulWidget {
-  final int recordId; // Recebe o ID do registro para buscar os dados
+  final int recordId; 
 
   const ChartDialogContent({super.key, required this.recordId});
 
@@ -135,7 +135,7 @@ class _ChartDialogContentState extends State<ChartDialogContent> {
           SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context); // Fecha o diálogo
+              Navigator.pop(context); 
             },style: ElevatedButton.styleFrom(
               backgroundColor: Color.fromRGBO(249, 110, 70, 1)
             ),

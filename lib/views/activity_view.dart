@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application/utils/db_helper.dart';
 import 'package:flutter_application/widgets/dates.dart';
 import 'package:flutter_application/widgets/graph.dart';
-//import 'package:flutter_application/widgets/info.dart' hide Stats;
 import 'package:flutter_application/widgets/stats.dart';
 import 'package:flutter_application/widgets/steps.dart';
 
@@ -33,7 +31,7 @@ class _ActivityViewState extends State<ActivityView> {
       int count = steps.first['stepCount'];
       setState(() {
         todayStepCount = count.toString();
-        // Calcular as métricas
+        // Calculate Metrics
         var metrics = calculateMetrics(count);
         timeInMinutes = metrics['timeInMinutes'];
         caloriesBurned = metrics['caloriesBurned'];

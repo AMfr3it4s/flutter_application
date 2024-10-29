@@ -116,7 +116,7 @@ class DatabaseHelper {
    Future<int> insertHeartRate(int bpm, DateTime dateTime, List<Map<String, dynamic>> points) async {
     final db = await database;
 
-    // Serialize My DataPoints List to Json
+    // Serialize DataPoints List to Json
     String pointsJson = jsonEncode(points);
 
     return await db.insert('heart_rate', {
@@ -133,7 +133,7 @@ class DatabaseHelper {
 
   return List.generate(maps.length, (i) {
     return HeartRateRecord(
-      id: maps[i]['id'], // Certifique-se de que 'id' existe no seu banco de dados
+      id: maps[i]['id'], 
       bpm: maps[i]['bpm'],
       dateTime: DateTime.parse(maps[i]['dateTime']),
       dataPoints: (maps[i]['dataPoints'] != null && maps[i]['dataPoints'] is String)
@@ -142,16 +142,16 @@ class DatabaseHelper {
                   time: DateTime.parse(point['time']),
                   value: point['value']))
               .toList()
-          : [], // Se dataPoints for null ou não for uma string, retorna uma lista vazia
+          : [], 
     );
   });
 }
 
   // Get Heart Rate by it's ID
   Future<HeartRateRecord?> getHeartRateById(int id) async {
-  final db = await database; // Sua função para obter a instância do banco de dados
+  final db = await database; 
   final maps = await db.query(
-    'heart_rate', // Nome da tabela
+    'heart_rate', 
     where: 'id = ?',
     whereArgs: [id],
   );
@@ -159,10 +159,11 @@ class DatabaseHelper {
   if (maps.isNotEmpty) {
     return HeartRateRecord.fromMap(maps.first);
   } else {
-    return null; // Registro não encontrado
+    return null; 
   }
 }
 
+  //Get Last Heart Rate from table
   Future<int?> getLastBpm() async {
   final db = await DatabaseHelper().database; 
   final List<Map<String, dynamic>> result = await db.query(
@@ -192,11 +193,7 @@ class DatabaseHelper {
   //Add Water to DB
   Future<void> addWaterIntake() async {
   final db = await DatabaseHelper().database;
-  
-  // Formato de data YYYY-MM-DD
   final String today = DateTime.now().toIso8601String().substring(0, 10); 
-  
-  // Verifica se já existe um registro para hoje
   final List<Map<String, dynamic>> existingRecords = await db.query(
     'water_intake',
     where: 'data = ?',
@@ -204,7 +201,6 @@ class DatabaseHelper {
   );
 
   if (existingRecords.isNotEmpty) {
-    // Se já existir, atualiza a quantidade
     final int currentQuantity = existingRecords.first['quantity'] as int;
     await db.update(
       'water_intake',
@@ -225,7 +221,6 @@ class DatabaseHelper {
     );
   }
 }
-
 
   //Delete all Data from DB
  Future<void> deleteAllData() async {
