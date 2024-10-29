@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Add this package for date formatting.
+import 'package:intl/intl.dart'; 
 
 import '../models/sensor.dart';
 
@@ -27,12 +27,12 @@ class ChartComp extends StatelessWidget {
             sideTitles: SideTitles(
               showTitles: true,
               reservedSize: 36,
-              interval: _calculateInterval(), // Dynamically calculate the interval
+              interval: _calculateInterval(), 
               getTitlesWidget: (value, meta) {
                 // Format the timestamp value to display time.
                 DateTime date = DateTime.fromMillisecondsSinceEpoch(value.toInt());
                 return Text(
-                  DateFormat('HH:mm:ss').format(date), // Format time as needed.
+                  DateFormat('HH:mm:ss').format(date), 
                   style: const TextStyle(fontSize: 10),
                 );
               },

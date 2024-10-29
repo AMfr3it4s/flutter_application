@@ -43,7 +43,7 @@ class StepCounterService {
     Geolocator.getPositionStream(
       locationSettings: LocationSettings(
         accuracy: LocationAccuracy.high,
-        distanceFilter: 5, // Ajuste para maior precisão
+        distanceFilter: 5, 
       ),
     ).listen((Position position) {
       _calculateSteps(position);

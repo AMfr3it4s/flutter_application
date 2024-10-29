@@ -26,7 +26,7 @@ class Programs extends StatelessWidget {
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(child: Text('No articles found.'));
                 } else {
-                  final articles = snapshot.data!.take(5).toList();
+                  final articles = snapshot.data!.take(8).toList();
 
                   return PageView.builder(
                     itemCount: articles.length,

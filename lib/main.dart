@@ -84,15 +84,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor:  const Color.fromRGBO(239, 235, 206, 1),
-      //   actions: [
-      //     IconButton(
-      //       icon: Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode),
-      //       onPressed: () => toggleThemeMode(!isDarkMode),
-      //     ),
-      //   ],
-      // ),
       body: ResumeView(toggleThemeMode: toggleThemeMode,
   isDarkMode: !isDarkMode, articles: [],) 
     );

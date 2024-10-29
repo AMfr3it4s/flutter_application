@@ -12,7 +12,7 @@ class NewsService {
     final response = await http.get(url);
     
     if (response.statusCode == 200) {
-      // Decodifica a resposta JSON
+      // Decode Json to a map representation
       final List<dynamic> jsonReponse =  jsonDecode(response.body)['articles'];
       return jsonReponse.map((article) => Article.fromJson(article)).toList();
 

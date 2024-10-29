@@ -39,8 +39,8 @@ class _ActivityState extends State<Activity> {
   final db = await DatabaseHelper().database;
   final List<Map<String, dynamic>> results = await db.query(
     'water_intake',
-    where: 'data = ?', // Corrigido o campo para 'data' para que seja consistente
-    whereArgs: [DateTime.now().toIso8601String().substring(0, 10)], // Formato de data YYYY-MM-DD
+    where: 'data = ?', 
+    whereArgs: [DateTime.now().toIso8601String().substring(0, 10)], 
   );
 
   if (results.isEmpty) {
