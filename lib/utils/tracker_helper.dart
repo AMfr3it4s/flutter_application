@@ -43,7 +43,8 @@ class StepCounterService {
     Geolocator.getPositionStream(
       locationSettings: LocationSettings(
         accuracy: LocationAccuracy.high,
-        distanceFilter: 5, 
+        //5
+        distanceFilter: 1, 
       ),
     ).listen((Position position) {
       _calculateSteps(position);
@@ -60,7 +61,8 @@ class StepCounterService {
       );
 
       // Filter minimum  distance to avoid counting small movements as steps
-      if (distance > 8) {
+      //8
+      if (distance > 4) {
         totalDistance += distance;
 
         int newStepCount = (totalDistance / stepLength).floor();
