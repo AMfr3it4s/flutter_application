@@ -52,6 +52,15 @@ class DatabaseHelper {
             data TEXT NOT NULL
           )
         ''');
+        await db.execute('''
+          CREATE TABLE waypoints(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            latitude REAL,
+            longitude REAL,
+            label TEXT,
+            imagePath TEXT
+          )
+        ''');
       },
     );
   }
@@ -236,5 +245,25 @@ class DatabaseHelper {
       String tableName = table['name'];
       await db.delete(tableName); // Clears all rows from the table
     }
+  }
+
+  //Insert Waypoint into  DB
+  Future<void> insertWaypoint(Map<String, dynamic> waypoint) async {
+    final db = await database;
+    await db.insert('waypoints', waypoint);
+  }
+  //Delete WayPoint
+  Future<void> deleteWaypoint(int id) async {
+    final db = await database; 
+    await db.delete(
+      'waypoints', 
+      where: 'id = ?', 
+      whereArgs: [id], 
+    );
+  }
+  //Get Waypoint from DB
+  Future<List<Map<String, dynamic>>> fetchWaypoints() async {
+    final db = await database;
+    return await db.query('waypoints');
   }
 }
