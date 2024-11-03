@@ -8,3 +8,5 @@ const heartRoute = '/heart';
 const exploreRoute = '/explore/';
 const nutritionRoute ='/nutrition/';
 const settingsRoute = '/settings/';
+const overallRoute = '/overall';
+const mapRoute = 'map';

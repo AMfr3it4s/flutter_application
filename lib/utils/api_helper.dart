@@ -8,7 +8,6 @@ class NewsService {
 
   Future<List<Article>> fetchTopHeadlines() async {
     final url = Uri.parse('$baseUrl/top-headlines?sources=bbc-news&apiKey=$apiKey');
-    
     final response = await http.get(url);
     
     if (response.statusCode == 200) {

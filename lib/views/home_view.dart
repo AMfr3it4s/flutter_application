@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
-import 'package:flutter_application/widgets/activity.dart';
 import 'package:flutter_application/widgets/current_programs.dart';
+import 'package:flutter_application/widgets/map_preview.dart';
 import 'heart_view.dart';
 
 const Color bottonNavBgColor = Color.fromRGBO(47, 62, 70, 0.7);
@@ -25,6 +25,8 @@ class ResumeView extends StatefulWidget {
 class _NotesViewState extends State<ResumeView> {
 
   int _selectedIndex = 0;
+  
+  
 
   static const List<Widget> _pages = <Widget>[
     HeartPage(),
@@ -37,6 +39,9 @@ class _NotesViewState extends State<ResumeView> {
       _selectedIndex = index;
     });
   }
+  
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +50,10 @@ class _NotesViewState extends State<ResumeView> {
     child: _selectedIndex == 0
         ? Column(
           children: [
-            SizedBox(height: 50),
+            SizedBox(height: 30),
             Programs(),
-            SizedBox(height: 10),
-            Activity(),
+            MapPreview(),
+            
 
           ],
         )

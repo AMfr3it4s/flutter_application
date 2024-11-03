@@ -12,7 +12,7 @@ class Programs extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 800,
-      height: 300,
+      height: 250,
       child: Column(
         children: [
           Expanded(

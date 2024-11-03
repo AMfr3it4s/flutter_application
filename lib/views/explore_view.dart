@@ -32,9 +32,15 @@ class ExploreView extends StatelessWidget {
             // Nutrition Card
             CustomCard(route: nutritionRoute, title: "Water", icon: Icons.water_drop_rounded),
             const SizedBox(height: 20),
-            // Settings Card
-            CustomCard(route: settingsRoute, title: "Settings", icon: Icons.settings),
+            //Overall Card
+            CustomCard(route: overallRoute, title: "Overall Performance", icon: Icons.volunteer_activism,),
             const SizedBox(height: 20),
+            //Map Card
+            CustomCard(route: mapRoute, title: 'Full Map',icon: Icons.map_rounded),
+            const SizedBox(height: 20),
+            //Settings Card
+            CustomCard(route: settingsRoute, title: "Settings", icon: Icons.settings),
+            const SizedBox(height: 20)
                         
           ],
         ),

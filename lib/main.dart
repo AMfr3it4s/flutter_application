@@ -4,8 +4,10 @@ import 'package:flutter_application/utils/tracker_helper.dart';
 import 'package:flutter_application/views/activity_view.dart';
 import 'package:flutter_application/views/explore_view.dart';
 import 'package:flutter_application/views/heart_view.dart';
+import 'package:flutter_application/views/map_view.dart';
 import 'package:flutter_application/views/nutrition_view.dart';
 import 'package:flutter_application/views/home_view.dart';
+import 'package:flutter_application/views/overall_view.dart';
 import 'package:flutter_application/views/settings_view.dart';
 import 'constants/routes.dart';
 
@@ -66,6 +68,8 @@ class _MyAppState extends State<MyApp> {
         nutritionRoute:(context) => const  NutritionView(),
         settingsRoute:(context) => SettingsView(toggleThemeMode: toggleThemeMode,
               isDarkMode: _themeMode == ThemeMode.dark),
+        overallRoute: (context) => const OverallView(),
+        mapRoute: (context) => const MapsView()
       },
     );
   }
